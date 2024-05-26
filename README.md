@@ -6,7 +6,7 @@
 | Simon Dereje | UGR/0952/14 |
 | Abenezer Tileye | UGR/5256/14 |
 | Samuel Endale | UGR/9314/14 |
-| Feven Lendu | UGR/1779/14 |
+| Feven Lendu | UGR/1779/13 |
 
 ## 1.Introduction 
 The restaurant rating system allows users to comment on restaurants. Moreover, it enables users to discover new dining places and gain insights on existing restaurant reviews. 
