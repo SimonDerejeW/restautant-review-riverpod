@@ -1,0 +1,130 @@
+### -------------------------Auth--------------------------------###
+### SIGNUP USER
+POST http://localhost:3000/auth/signup HTTP/1.1
+Content-Type: application/json
+
+{
+    "username": "TestUser",
+    "email": "jtestuser@gmail.com",
+    "password": "123456",
+    "roles": "user"
+
+}
+
+### SIGNUP OWNER
+POST http://localhost:3000/auth/signup HTTP/1.1
+Content-Type: application/json
+
+{
+    "username": "ephi12",
+    "email": "ephi@gmail12.com",
+    "password": "123456",
+    "roles": "owner" 
+
+}
+
+
+###LOG IN
+
+POST  http://localhost:3000/auth/login HTTP/1.1
+Content-Type: application/json
+
+{
+    "username": "TestUser",
+    "password": "123456"
+}
+
+
+###LOG IN
+
+POST  http://localhost:3000/auth/login HTTP/1.1
+Content-Type: application/json
+
+{
+    "username": "ephi12",
+    "password": "123456"
+}
+
+
+### -------------------------Restaurant Features--------------------------------###
+###CREATE RESTAURANT
+
+POST http://localhost:3000/restaurant HTTP/1.1
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2NWExOGQwZmZmOWVjODdmZGM3MjJjODIiLCJ1c2VybmFtZSI6ImVwaGkxMiIsInJvbGVzIjpbIm93bmVyIl0sImlhdCI6MTcwNTA4NjIzOSwiZXhwIjoxNzA1MTcyNjM5fQ.CaM5tQjw82vX_mFprAun9FOnfw0G8zuhyXW7R2UJlK8
+   
+{   "name": "Chick-Fil-A pt.2",
+    "description": "Italian food",
+    "location": "Addis Ababa",
+    "contact": "0912345678",
+    "openingTime": "8AM",
+    "closingTime": "10PM" 
+}
+
+###GET ALL RESTAURANTS
+GET http://localhost:3000/restaurant HTTP/1.1
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2NTlmMWMzOGIyNTlkNTE2MmYxNzZjNmQiLCJ1c2VybmFtZSI6IlNpbW9uRGVyZWplIiwicm9sZXMiOlsidXNlciJdLCJpYXQiOjE3MDUwNDM1MDcsImV4cCI6MTcwNTEyOTkwN30.jjYeQEeeWB4V17gGMqrah9dZiK-MoZnFI1_SJ71A1QQ
+
+
+###GET RESTAURANT BY ID
+GET http://localhost:3000/restaurant/65a0ead5251dac75f2e2ea70 HTTP/1.1
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2NTlmMWMzOGIyNTlkNTE2MmYxNzZjNmQiLCJ1c2VybmFtZSI6IlNpbW9uRGVyZWplIiwicm9sZXMiOlsidXNlciJdLCJpYXQiOjE3MDUwNzg2OTUsImV4cCI6MTcwNTE2NTA5NX0.Tr47yJPc_0zb0u-zG88Jwc-bh-9S3EwoSf45eUBZi78
+
+
+###UPDATE RESTAURANT
+PUT http://localhost:3000/restaurant/65a0e72b251dac75f2e2ea5a HTTP/1.1
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2NWEwZTZjMDI1MWRhYzc1ZjJlMmVhNTciLCJ1c2VybmFtZSI6IkphbmVEb2UiLCJyb2xlcyI6WyJvd25lciJdLCJpYXQiOjE3MDUwNDM2NDgsImV4cCI6MTcwNTEzMDA0OH0.lRVZomAJyJP4MCIuqBA3fszkqHH-cqcTY-NKejuLAuw
+
+{
+    "name": "Popeyes",
+    "description": "Fast food",
+    "location": "Addis Ababa",
+    "contact": "0912345678",
+    "openingTime": "8AM",
+    "closingTime": "10PM" 
+}
+
+###DELETE RESTAURANT
+DELETE http://localhost:3000/restaurant/65a0e72b251dac75f2e2ea5a HTTP/1.1
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2NWEwZTZjMDI1MWRhYzc1ZjJlMmVhNTciLCJ1c2VybmFtZSI6IkphbmVEb2UiLCJyb2xlcyI6WyJvd25lciJdLCJpYXQiOjE3MDUwNDM2NDgsImV4cCI6MTcwNTEzMDA0OH0.lRVZomAJyJP4MCIuqBA3fszkqHH-cqcTY-NKejuLAuw
+
+
+### -------------------------Comments--------------------------------###
+###CREATE COMMENT
+POST http://localhost:3000/comment HTTP/1.1
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2NTlmMWMzOGIyNTlkNTE2MmYxNzZjNmQiLCJ1c2VybmFtZSI6IlNpbW9uRGVyZWplIiwicm9sZXMiOlsidXNlciJdLCJpYXQiOjE3MDUwNDUyNzksImV4cCI6MTcwNTEzMTY3OX0.w54dXu-F1M2_3vrewiQQq7He0J4XlU8ZmpwUbcuIuy4
+
+{
+    "restaurantId": "65a0ea10251dac75f2e2ea69",
+    "opinion": "lorem ipsum"
+}
+
+
+###GET ALL COMMENTS
+GET http://localhost:3000/comment HTTP/1.1
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2NTlmMWMzOGIyNTlkNTE2MmYxNzZjNmQiLCJ1c2VybmFtZSI6IlNpbW9uRGVyZWplIiwicm9sZXMiOlsidXNlciJdLCJpYXQiOjE3MDUwNDUyNzksImV4cCI6MTcwNTEzMTY3OX0.w54dXu-F1M2_3vrewiQQq7He0J4XlU8ZmpwUbcuIuy4
+
+
+###GET COMMENT BY ID
+GET http://localhost:3000/comment/65a0f300fc6dda37b902eee8 HTTP/1.1
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2NTlmMWMzOGIyNTlkNTE2MmYxNzZjNmQiLCJ1c2VybmFtZSI6IlNpbW9uRGVyZWplIiwicm9sZXMiOlsidXNlciJdLCJpYXQiOjE3MDUwNDUyNzksImV4cCI6MTcwNTEzMTY3OX0.w54dXu-F1M2_3vrewiQQq7He0J4XlU8ZmpwUbcuIuy4
+
+
+###UPDATE COMMENT
+PUT http://localhost:3000/comment/65a0f300fc6dda37b902eee8 HTTP/1.1
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2NWEwZTI4MDZkMzk1ZTkzMTY0M2NhOWEiLCJ1c2VybmFtZSI6IkpvaG5Eb2UiLCJyb2xlcyI6WyJ1c2VyIl0sImlhdCI6MTcwNTA0NzI4NCwiZXhwIjoxNzA1MTMzNjg0fQ.hJ9C1BOsflKf1J9u0UCbgY9ytNqiYlya8bxYDm_hAck
+
+{
+    "opinion": "This is the best chicken sandwich I have ever had"
+}
+
+
+###DELETE COMMENT
+DELETE http://localhost:3000/comment/65a0f276fc6dda37b902eee1 HTTP/1.1
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2NWEwZTI4MDZkMzk1ZTkzMTY0M2NhOWEiLCJ1c2VybmFtZSI6IkpvaG5Eb2UiLCJyb2xlcyI6WyJ1c2VyIl0sImlhdCI6MTcwNTA0NzI4NCwiZXhwIjoxNzA1MTMzNjg0fQ.hJ9C1BOsflKf1J9u0UCbgY9ytNqiYlya8bxYDm_hAck
+
