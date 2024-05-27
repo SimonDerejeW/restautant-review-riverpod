@@ -1,5 +1,3 @@
-
-
 import 'package:flutter/material.dart';
 import 'package:restaurant_review/core/theme/theme.dart';
 import 'package:restaurant_review/presentation/screens/Profile_page.dart';
@@ -9,10 +7,10 @@ import 'package:restaurant_review/presentation/screens/bottom_nav.dart';
 import 'package:restaurant_review/presentation/screens/home_page.dart';
 import 'package:restaurant_review/presentation/screens/search_page.dart';
 import 'package:restaurant_review/presentation/screens/sign_up_page.dart';
-
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 void main() {
-  runApp(const MyApp());
+  runApp(ProviderScope(child: const MyApp()));
 }
 
 class MyApp extends StatelessWidget {
@@ -25,12 +23,12 @@ class MyApp extends StatelessWidget {
       theme: AppTheme.LightThemeMode,
       home: SignUpPage(),
       routes: {
-        '/firstpage' : (context) => ReviewHome(),
-        '/searchpage' : (context) => SearchPage(),
-        '/profilepage' :(context) => ProfilePage(),
-        "/restaurantpage" :(context) => RestaurantPage(),
-        '/adminprofile' :(context) => AdminTab(),
-        "/entry" :(context) => BottomNav()
+        '/firstpage': (context) => ReviewHome(),
+        '/searchpage': (context) => SearchPage(),
+        '/profilepage': (context) => ProfilePage(),
+        "/restaurantpage": (context) => RestaurantPage(),
+        '/adminprofile': (context) => AdminTab(),
+        "/entry": (context) => BottomNav()
       },
     );
   }
