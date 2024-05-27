@@ -4,8 +4,8 @@ POST http://localhost:3000/auth/signup HTTP/1.1
 Content-Type: application/json
 
 {
-    "username": "TestUser",
-    "email": "jtestuser@gmail.com",
+    "username": "KevinD",
+    "email": "kdb17@gmail.com",
     "password": "123456",
     "roles": "user"
 
@@ -16,8 +16,8 @@ POST http://localhost:3000/auth/signup HTTP/1.1
 Content-Type: application/json
 
 {
-    "username": "ephi12",
-    "email": "ephi@gmail12.com",
+    "username": "cristiano",
+    "email": "cris@gmail12.com",
     "password": "123456",
     "roles": "owner" 
 
@@ -51,11 +51,11 @@ Content-Type: application/json
 
 POST http://localhost:3000/restaurant HTTP/1.1
 Content-Type: application/json
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2NWExOGQwZmZmOWVjODdmZGM3MjJjODIiLCJ1c2VybmFtZSI6ImVwaGkxMiIsInJvbGVzIjpbIm93bmVyIl0sImlhdCI6MTcwNTA4NjIzOSwiZXhwIjoxNzA1MTcyNjM5fQ.CaM5tQjw82vX_mFprAun9FOnfw0G8zuhyXW7R2UJlK8
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2NjUzMjM4MmU1Nzk1NzMzZWY2M2VlZWUiLCJ1c2VybmFtZSI6ImNyaXN0aWFubyIsInJvbGVzIjpbIm93bmVyIl0sImlhdCI6MTcxNjcyNDYxMCwiZXhwIjoxNzE2ODExMDEwfQ.TzofhZ194HkErSdfV-HFIkOOM04gC_4iNxLt18jMWX0
    
-{   "name": "Chick-Fil-A pt.2",
-    "description": "Italian food",
-    "location": "Addis Ababa",
+{   "name": "Sui Restaurant",
+    "description": "Sui food",
+    "location": "Portugal",
     "contact": "0912345678",
     "openingTime": "8AM",
     "closingTime": "10PM" 
@@ -63,11 +63,11 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2NWExOGQwZ
 
 ###GET ALL RESTAURANTS
 GET http://localhost:3000/restaurant HTTP/1.1
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2NTlmMWMzOGIyNTlkNTE2MmYxNzZjNmQiLCJ1c2VybmFtZSI6IlNpbW9uRGVyZWplIiwicm9sZXMiOlsidXNlciJdLCJpYXQiOjE3MDUwNDM1MDcsImV4cCI6MTcwNTEyOTkwN30.jjYeQEeeWB4V17gGMqrah9dZiK-MoZnFI1_SJ71A1QQ
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2NjUzMGE2OWU1Nzk1NzMzZWY2M2VlZTIiLCJ1c2VybmFtZSI6Ik1lc3NpIiwicm9sZXMiOlsidXNlciJdLCJpYXQiOjE3MTY3MTgxODUsImV4cCI6MTcxNjgwNDU4NX0.GHjnJdWihwzhKVEXjkP6ouRPzwMi-SctmXf5Jp4tzXA
 
 
 ###GET RESTAURANT BY ID
-GET http://localhost:3000/restaurant/65a0ead5251dac75f2e2ea70 HTTP/1.1
+GET http://localhost:3000/restaurant/665323e5e5795733ef63eef0 HTTP/1.1
 Content-Type: application/json
 Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2NTlmMWMzOGIyNTlkNTE2MmYxNzZjNmQiLCJ1c2VybmFtZSI6IlNpbW9uRGVyZWplIiwicm9sZXMiOlsidXNlciJdLCJpYXQiOjE3MDUwNzg2OTUsImV4cCI6MTcwNTE2NTA5NX0.Tr47yJPc_0zb0u-zG88Jwc-bh-9S3EwoSf45eUBZi78
 
