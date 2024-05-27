@@ -10,7 +10,6 @@ import { LoginDto } from './dto/login.auth.dto';
 import { LogoutDto } from './dto/logout.auth.dto';
 import { HttpException, HttpStatus } from '@nestjs/common';
 
-
 @Injectable()
 export class AuthService {
   constructor(
@@ -24,12 +23,13 @@ export class AuthService {
     const { username, email, password, roles } = signUpDto;
 
     if (roles.includes('admin')) {
-      const existingAdmin = await this.userModel.findOne({ roles: 'admin' }).exec();
+      const existingAdmin = await this.userModel
+        .findOne({ roles: 'admin' })
+        .exec();
       if (existingAdmin) {
         throw new HttpException('An admin already exists', HttpStatus.CONFLICT);
-      }else{
+      } else {
         const hashedPassword = await bcrypt.hash(password, 10);
-        
       }
     }
 
@@ -61,12 +61,12 @@ export class AuthService {
 
     const user = await this.userModel.findOne({ username });
 
-    if (user.isBanned){
-      throw new BadRequestException(`user ${user.username} is banned`);
-    }
-
     if (!user) {
       throw new BadRequestException('Invalid credentials');
+    }
+
+    if (user.isBanned) {
+      throw new BadRequestException(`user ${user.username} is banned`);
     }
 
     const isMatch = await bcrypt.compare(password, user.password);
@@ -87,9 +87,9 @@ export class AuthService {
     };
   }
 
-  async logout(): Promise<{access_token: string}> {
+  async logout(): Promise<{ access_token: string }> {
     return {
-      access_token: ''
-    }
+      access_token: '',
+    };
   }
 }
