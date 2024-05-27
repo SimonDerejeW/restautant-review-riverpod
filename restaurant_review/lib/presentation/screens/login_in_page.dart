@@ -1,36 +1,29 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:restaurant_review/core/theme/app_pallete.dart';
 import 'package:restaurant_review/presentation/screens/sign_up_page.dart';
 import 'package:restaurant_review/presentation/widgets/auth_field.dart';
 import 'package:restaurant_review/presentation/widgets/auth_gradient_button.dart';
+import 'package:restaurant_review/presentation/view_models/auth_view_model.dart';
 
-class LogInPage extends StatefulWidget {
-  static route() => MaterialPageRoute(
-        builder: (context) => const LogInPage(),
-      );
+class LogInPage extends ConsumerWidget {
+  static Route<dynamic> route() {
+    return MaterialPageRoute<dynamic>(
+      builder: (context) => const LogInPage(),
+    );
+  }
 
   const LogInPage({super.key});
 
   @override
-  State<LogInPage> createState() => _LogInPageState();
-}
+  Widget build(BuildContext context, WidgetRef ref) {
+    final authViewModel = ref.read(authNotifierProvider.notifier);
+    final state = ref.watch(authNotifierProvider);
 
-class _LogInPageState extends State<LogInPage> {
-  final formKey = GlobalKey<FormState>();
+    final formKey = GlobalKey<FormState>();
+    final emailController = TextEditingController();
+    final passwordController = TextEditingController();
 
-  final emailController = TextEditingController();
-  final passwordController = TextEditingController();
-
-  @override
-  void dispose() {
-    emailController.dispose();
-    passwordController.dispose();
-    super.dispose();
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    // formKey.currentState!.validate();
     return Scaffold(
       body: Padding(
         padding: const EdgeInsets.all(12.0),
@@ -65,26 +58,41 @@ class _LogInPageState extends State<LogInPage> {
                 height: 20,
               ),
               AuthGradientButton(
-                  buttonText: "Sign In",
-                  onPressed: () {
-                    if (formKey.currentState!.validate()) {
-                      print("Sign In");
+                buttonText: "Sign In",
+                onPressed: () async {
+                  if (formKey.currentState!.validate()) {
+                    print(
+                        'Correct form validation........................................');
+                    await authViewModel.login(
+                      emailController.text.trim(),
+                      passwordController.text.trim(),
+                    );
+                    final state = ref.watch(authNotifierProvider);
+                    print(
+                        'Correct form validation old state.............${state.isAuthenticated}...........................');
+                    if (state.isAuthenticated) {
+                      Navigator.pushNamed(context, '/entry');
+                    } else {
+                      ScaffoldMessenger.of(context).showSnackBar(
+                        const SnackBar(
+                          content: Text('Login failed. Please try again.'),
+                        ),
+                      );
                     }
-                    Navigator.pushNamed(context, '/entry');
-                  }),
+                  }
+                },
+              ),
               const SizedBox(
                 height: 20,
               ),
               GestureDetector(
-                onTap: () => {
-                  Navigator.push(
-                    context,
-                    SignUpPage.route(),
-                  ),
-                },
+                onTap: () => Navigator.push(
+                  context,
+                  SignUpPage.route(),
+                ),
                 child: RichText(
                   text: TextSpan(
-                    text: "Dont't have an account?",
+                    text: "Don't have an account?",
                     style: Theme.of(context).textTheme.titleMedium,
                     children: [
                       TextSpan(
@@ -106,3 +114,6 @@ class _LogInPageState extends State<LogInPage> {
     );
   }
 }
+
+
+

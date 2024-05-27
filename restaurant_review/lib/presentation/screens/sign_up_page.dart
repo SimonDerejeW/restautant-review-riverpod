@@ -1,39 +1,37 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:restaurant_review/core/theme/app_pallete.dart';
 import 'package:restaurant_review/presentation/screens/login_in_page.dart';
 import 'package:restaurant_review/presentation/widgets/auth_field.dart';
 import 'package:restaurant_review/presentation/widgets/auth_gradient_button.dart';
+import 'package:restaurant_review/presentation/view_models/auth_view_model.dart';
 
 enum UserType { owner, customer }
 
-class SignUpPage extends StatefulWidget {
-  static route() => MaterialPageRoute(
-        builder: (context) => const SignUpPage(),
-      );
+class SignUpPage extends ConsumerWidget {
+  static Route<dynamic> route() {
+    return MaterialPageRoute<dynamic>(
+      builder: (context) => const SignUpPage(),
+    );
+  }
 
   const SignUpPage({super.key});
 
   @override
-  State<SignUpPage> createState() => _SignUpPageState();
-}
+  Widget build(BuildContext context, WidgetRef ref) {
+    final formKey = GlobalKey<FormState>();
 
-class _SignUpPageState extends State<SignUpPage> {
-  final formKey = GlobalKey<FormState>();
+    final nameController = TextEditingController();
+    final emailController = TextEditingController();
+    final passwordController = TextEditingController();
+    final userType = StateProvider<UserType?>((ref) => null);
 
-  final nameController = TextEditingController();
-  final emailController = TextEditingController();
-  final passwordController = TextEditingController();
-  UserType? _selectedUserType;
+    final authViewModel = ref.read(authNotifierProvider.notifier);
+    final state = ref.watch(authNotifierProvider);
 
-  @override
-  Widget build(BuildContext context) {
-    // formKey.currentState!.validate();
     return Scaffold(
       body: SingleChildScrollView(
-        padding: const EdgeInsets.only(
-          top: 100,
-        ),
+        padding: const EdgeInsets.only(top: 100),
         child: Padding(
           padding: const EdgeInsets.all(12.0),
           child: Form(
@@ -48,31 +46,23 @@ class _SignUpPageState extends State<SignUpPage> {
                     fontWeight: FontWeight.bold,
                   ),
                 ),
-                const SizedBox(
-                  height: 30,
-                ),
+                const SizedBox(height: 30),
                 AuthField(
                   hintText: 'Name',
                   controller: nameController,
                 ),
-                const SizedBox(
-                  height: 15,
-                ),
+                const SizedBox(height: 15),
                 AuthField(
                   hintText: "Email",
                   controller: emailController,
                 ),
-                const SizedBox(
-                  height: 15,
-                ),
+                const SizedBox(height: 15),
                 AuthField(
                   hintText: "Password",
                   controller: passwordController,
                   isObscure: true,
                 ),
-                const SizedBox(
-                  height: 15,
-                ),
+                const SizedBox(height: 15),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
@@ -80,53 +70,65 @@ class _SignUpPageState extends State<SignUpPage> {
                     Radio<UserType>(
                       activeColor: AppPallete.gradient3,
                       value: UserType.owner,
-                      groupValue: _selectedUserType,
+                      groupValue: ref.watch(userType),
                       onChanged: (UserType? value) {
-                        setState(() {
-                          _selectedUserType = value;
-                        });
+                        ref.read(userType.notifier).state = value;
                       },
                     ),
-                    const SizedBox(
-                      width: 20,
-                    ),
+                    const SizedBox(width: 20),
                     const Text('Customer'),
                     Radio<UserType>(
                       activeColor: AppPallete.gradient3,
                       value: UserType.customer,
-                      groupValue: _selectedUserType,
+                      groupValue: ref.watch(userType),
                       onChanged: (UserType? value) {
-                        setState(() {
-                          _selectedUserType = value;
-                        });
+                        ref.read(userType.notifier).state = value;
                       },
                     ),
                   ],
                 ),
-                const SizedBox(
-                  height: 20,
-                ),
+                const SizedBox(height: 20),
                 AuthGradientButton(
                   buttonText: "Sign Up",
-                  onPressed: () {
+                  onPressed: () async {
                     if (formKey.currentState!.validate()) {
-                      print('Signed Up');
-                      Navigator.push(
-                        context,
-                        LogInPage.route(),
-                      );
+                      final selectedUserType = ref.read(userType);
+                      if (selectedUserType != null) {
+                        final userTypeString =
+                            selectedUserType == UserType.owner
+                                ? 'owner'
+                                : 'user';
+                        await authViewModel.signUpUser(
+                          nameController.text.trim(),
+                          emailController.text.trim(),
+                          passwordController.text.trim(),
+                          userTypeString,
+                        );
+
+                        if (state.user != null) {
+                          Navigator.pushNamed(context, '/entry');
+                        } else {
+                          ScaffoldMessenger.of(context).showSnackBar(
+                            const SnackBar(
+                              content:
+                                  Text('Sign Up failed. Please try again.'),
+                            ),
+                          );
+                        }
+                      } else {
+                        ScaffoldMessenger.of(context).showSnackBar(
+                          const SnackBar(
+                            content: Text('Please select a user type.'),
+                          ),
+                        );
+                      }
                     }
                   },
                 ),
-                const SizedBox(
-                  height: 20,
-                ),
+                const SizedBox(height: 20),
                 GestureDetector(
                   onTap: () {
-                    Navigator.push(
-                      context,
-                      LogInPage.route(),
-                    );
+                    Navigator.push(context, LogInPage.route());
                   },
                   child: RichText(
                     text: TextSpan(
