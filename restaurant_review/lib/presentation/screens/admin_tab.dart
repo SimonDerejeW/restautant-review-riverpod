@@ -1,34 +1,48 @@
+// admin_tab.dart
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:restaurant_review/application/admin/admin_event.dart';
+import 'package:restaurant_review/application/admin/admin_providers.dart';
 import 'package:restaurant_review/core/theme/app_pallete.dart';
-import 'package:restaurant_review/data/users_data.dart';
-import 'package:restaurant_review/models/users_model.dart';
 import 'package:restaurant_review/presentation/widgets/users_view_for_admin.dart';
 
-class AdminTab extends StatefulWidget {
+
+class AdminTab extends ConsumerStatefulWidget {
   const AdminTab({super.key});
 
   @override
-  State<AdminTab> createState() => _AdminTabState();
+  ConsumerState<AdminTab> createState() => _AdminTabState();
 }
 
-class _AdminTabState extends State<AdminTab> {
-  List<CustomerModel> customers = customerData;
-  List<OwnerModel> owners = ownerData;
-
-  void toggleBanCustomers(int index, bool value) {
-    setState(() {
-      customers[index].isBanned = value;
-    });
+class _AdminTabState extends ConsumerState<AdminTab> {
+  @override
+  void initState() {
+    super.initState();
+    Future.microtask(() => ref
+        .read(adminNotifierProvider.notifier)
+        .handleEvent(AdminEvent.fetchUsers));
   }
 
-  void toggleBanOwners(int index, bool value) {
-    setState(() {
-      owners[index].isBanned = value;
-    });
+  void toggleBanCustomer(int index, bool value) {
+    final customer = ref.read(adminNotifierProvider).customers[index];
+    ref.read(adminNotifierProvider.notifier).handleEvent(
+        AdminEvent.toggleBanCustomer,
+        username: customer.name,
+        isBanned: value);
+  }
+
+  void toggleBanOwner(int index, bool value) {
+    final owner = ref.read(adminNotifierProvider).owners[index];
+    ref.read(adminNotifierProvider.notifier).handleEvent(
+        AdminEvent.toggleBanOwner,
+        username: owner.name,
+        isBanned: value);
   }
 
   @override
   Widget build(BuildContext context) {
+    final state = ref.watch(adminNotifierProvider);
+
     return DefaultTabController(
       length: 2,
       child: Scaffold(
@@ -53,24 +67,28 @@ class _AdminTabState extends State<AdminTab> {
             )
           ]),
         ),
-        body: TabBarView(children: [
-          ListView.builder(
-            itemCount: owners.length,
-            itemBuilder: (context, index) => UsersView(
-              name: owners[index].name,
-              isBanned: owners[index].isBanned,
-              onChanged: (value) => toggleBanOwners(index, value),
-            ),
-          ),
-          ListView.builder(
-            itemCount: customers.length,
-            itemBuilder: (context, index) => UsersView(
-              name: customers[index].name,
-              isBanned: customers[index].isBanned,
-              onChanged: (value) => toggleBanCustomers(index, value),
-            ),
-          )
-        ]),
+        body: state.isLoading
+            ? const Center(child: CircularProgressIndicator())
+            : state.errorMessage != null
+                ? Center(child: Text(state.errorMessage!))
+                : TabBarView(children: [
+                    ListView.builder(
+                      itemCount: state.owners.length,
+                      itemBuilder: (context, index) => UsersView(
+                        name: state.owners[index].name,
+                        isBanned: state.owners[index].isBanned,
+                        onChanged: (value) => toggleBanOwner(index, value),
+                      ),
+                    ),
+                    ListView.builder(
+                      itemCount: state.customers.length,
+                      itemBuilder: (context, index) => UsersView(
+                        name: state.customers[index].name,
+                        isBanned: state.customers[index].isBanned,
+                        onChanged: (value) => toggleBanCustomer(index, value),
+                      ),
+                    ),
+                  ]),
       ),
     );
   }
