@@ -1,13 +1,16 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:restaurant_review/application/auth/auth_event.dart';
+import 'package:restaurant_review/application/auth/auth_providers.dart';
+import 'package:restaurant_review/application/auth/auth_state.dart';
 import 'package:restaurant_review/core/theme/app_pallete.dart';
 import 'package:restaurant_review/presentation/screens/login_in_page.dart';
 import 'package:restaurant_review/presentation/widgets/auth_field.dart';
 import 'package:restaurant_review/presentation/widgets/auth_gradient_button.dart';
 
-enum UserType { owner, customer }
+enum UserType { owner, user }
 
-class SignUpPage extends StatefulWidget {
+class SignUpPage extends ConsumerStatefulWidget {
   static route() => MaterialPageRoute(
         builder: (context) => const SignUpPage(),
       );
@@ -15,10 +18,10 @@ class SignUpPage extends StatefulWidget {
   const SignUpPage({super.key});
 
   @override
-  State<SignUpPage> createState() => _SignUpPageState();
+  ConsumerState<SignUpPage> createState() => _SignUpPageState();
 }
 
-class _SignUpPageState extends State<SignUpPage> {
+class _SignUpPageState extends ConsumerState<SignUpPage> {
   final formKey = GlobalKey<FormState>();
 
   final nameController = TextEditingController();
@@ -27,8 +30,45 @@ class _SignUpPageState extends State<SignUpPage> {
   UserType? _selectedUserType;
 
   @override
+  void dispose() {
+    nameController.dispose();
+    emailController.dispose();
+    passwordController.dispose();
+    super.dispose();
+  }
+
+  void handleSignUp() {
+    if (formKey.currentState!.validate()) {
+      if (_selectedUserType != null) {
+        final authNotifier = ref.read(authNotifierProvider.notifier);
+        authNotifier.handleEvent(
+          AuthSignUpRequested(
+            nameController.text,
+            emailController.text,
+            passwordController.text,
+            _selectedUserType == UserType.owner ? 'owner' : 'user',
+          ),
+        );
+      } else {
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(content: Text('Please select a user type')),
+        );
+      }
+    }
+  }
+
+  @override
   Widget build(BuildContext context) {
-    // formKey.currentState!.validate();
+    ref.listen<AuthState>(authNotifierProvider, (previous, next) {
+      if (next is AuthAuthenticated) {
+        Navigator.push(context, LogInPage.route());
+      } else if (next is AuthError) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(content: Text(next.message)),
+        );
+      }
+    });
+
     return Scaffold(
       body: SingleChildScrollView(
         padding: const EdgeInsets.only(
@@ -93,7 +133,7 @@ class _SignUpPageState extends State<SignUpPage> {
                     const Text('Customer'),
                     Radio<UserType>(
                       activeColor: AppPallete.gradient3,
-                      value: UserType.customer,
+                      value: UserType.user,
                       groupValue: _selectedUserType,
                       onChanged: (UserType? value) {
                         setState(() {
@@ -108,15 +148,7 @@ class _SignUpPageState extends State<SignUpPage> {
                 ),
                 AuthGradientButton(
                   buttonText: "Sign Up",
-                  onPressed: () {
-                    if (formKey.currentState!.validate()) {
-                      print('Signed Up');
-                      Navigator.push(
-                        context,
-                        LogInPage.route(),
-                      );
-                    }
-                  },
+                  onPressed: handleSignUp,
                 ),
                 const SizedBox(
                   height: 20,
@@ -144,7 +176,7 @@ class _SignUpPageState extends State<SignUpPage> {
                       ],
                     ),
                   ),
-                )
+                ),
               ],
             ),
           ),
