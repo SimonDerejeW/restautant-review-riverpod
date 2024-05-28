@@ -1,4 +1,5 @@
 import 'package:equatable/equatable.dart';
+import 'package:restaurant_review/domain/auth/user.dart';
 
 abstract class AuthState extends Equatable {
   @override
@@ -10,12 +11,12 @@ class AuthInitial extends AuthState {}
 class AuthLoading extends AuthState {}
 
 class AuthAuthenticated extends AuthState {
-  final String token;
+  final User user;
 
-  AuthAuthenticated(this.token);
+  AuthAuthenticated(this.user);
 
   @override
-  List<Object?> get props => [token];
+  List<Object?> get props => [user];
 }
 
 class AuthUnauthenticated extends AuthState {}

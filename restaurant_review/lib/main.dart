@@ -26,7 +26,7 @@ class MyApp extends StatelessWidget {
         '/firstpage': (context) => ReviewHome(),
         '/searchpage': (context) => SearchPage(),
         '/profilepage': (context) => ProfilePage(),
-        "/restaurantpage": (context) => RestaurantPage(),
+        // "/restaurantpage": (context) => RestaurantPage(),
         '/adminprofile': (context) => AdminTab(),
         "/entry": (context) => BottomNav()
       },

@@ -4,8 +4,8 @@ POST http://localhost:3000/auth/signup HTTP/1.1
 Content-Type: application/json
 
 {
-    "username": "TestUser",
-    "email": "jtestuser@gmail.com",
+    "username": "KevinD",
+    "email": "kdb17@gmail.com",
     "password": "123456",
     "roles": "user"
 
@@ -16,8 +16,8 @@ POST http://localhost:3000/auth/signup HTTP/1.1
 Content-Type: application/json
 
 {
-    "username": "ephi12",
-    "email": "ephi@gmail12.com",
+    "username": "cristiano",
+    "email": "cris@gmail12.com",
     "password": "123456",
     "roles": "owner" 
 
@@ -30,18 +30,18 @@ POST  http://localhost:3000/auth/login HTTP/1.1
 Content-Type: application/json
 
 {
-    "username": "TestUser",
+    "username": "KevinD",
     "password": "123456"
 }
 
 
-###LOG IN
+###LOG IN OWNER
 
 POST  http://localhost:3000/auth/login HTTP/1.1
 Content-Type: application/json
 
 {
-    "username": "ephi12",
+    "username": "cristiano",
     "password": "123456"
 }
 
@@ -51,11 +51,11 @@ Content-Type: application/json
 
 POST http://localhost:3000/restaurant HTTP/1.1
 Content-Type: application/json
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2NWExOGQwZmZmOWVjODdmZGM3MjJjODIiLCJ1c2VybmFtZSI6ImVwaGkxMiIsInJvbGVzIjpbIm93bmVyIl0sImlhdCI6MTcwNTA4NjIzOSwiZXhwIjoxNzA1MTcyNjM5fQ.CaM5tQjw82vX_mFprAun9FOnfw0G8zuhyXW7R2UJlK8
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2NjU1YWZkYjU3YWExMWZkNWJlMGY2YTYiLCJ1c2VybmFtZSI6ImNyaXN0aWFubyIsInJvbGVzIjpbIm93bmVyIl0sImlhdCI6MTcxNjg5MTYzOCwiZXhwIjoxNzE2OTc4MDM4fQ.wRP5979lSPAh8KF5XcaSIqdRog-65AMgBxlrHXnkTjM
    
-{   "name": "Chick-Fil-A pt.2",
-    "description": "Italian food",
-    "location": "Addis Ababa",
+{   "name": "Sui Restaurant",
+    "description": "Sui food",
+    "location": "Lisbon, Portugal",
     "contact": "0912345678",
     "openingTime": "8AM",
     "closingTime": "10PM" 
@@ -63,11 +63,11 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2NWExOGQwZ
 
 ###GET ALL RESTAURANTS
 GET http://localhost:3000/restaurant HTTP/1.1
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2NTlmMWMzOGIyNTlkNTE2MmYxNzZjNmQiLCJ1c2VybmFtZSI6IlNpbW9uRGVyZWplIiwicm9sZXMiOlsidXNlciJdLCJpYXQiOjE3MDUwNDM1MDcsImV4cCI6MTcwNTEyOTkwN30.jjYeQEeeWB4V17gGMqrah9dZiK-MoZnFI1_SJ71A1QQ
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2NjU1YWZjNDU3YWExMWZkNWJlMGY2YTQiLCJ1c2VybmFtZSI6IktldmluRCIsInJvbGVzIjpbInVzZXIiXSwiaWF0IjoxNzE2OTI0OTUyLCJleHAiOjE3MTcwMTEzNTJ9.vybvkNcGVXYbSq_aJy_Q4qqf8pHn3VgYj0H4SQT8OlI
 
 
 ###GET RESTAURANT BY ID
-GET http://localhost:3000/restaurant/65a0ead5251dac75f2e2ea70 HTTP/1.1
+GET http://localhost:3000/restaurant/665323e5e5795733ef63eef0 HTTP/1.1
 Content-Type: application/json
 Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2NTlmMWMzOGIyNTlkNTE2MmYxNzZjNmQiLCJ1c2VybmFtZSI6IlNpbW9uRGVyZWplIiwicm9sZXMiOlsidXNlciJdLCJpYXQiOjE3MDUwNzg2OTUsImV4cCI6MTcwNTE2NTA5NX0.Tr47yJPc_0zb0u-zG88Jwc-bh-9S3EwoSf45eUBZi78
 
@@ -95,11 +95,11 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2NWEwZTZjM
 ###CREATE COMMENT
 POST http://localhost:3000/comment HTTP/1.1
 Content-Type: application/json
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2NTlmMWMzOGIyNTlkNTE2MmYxNzZjNmQiLCJ1c2VybmFtZSI6IlNpbW9uRGVyZWplIiwicm9sZXMiOlsidXNlciJdLCJpYXQiOjE3MDUwNDUyNzksImV4cCI6MTcwNTEzMTY3OX0.w54dXu-F1M2_3vrewiQQq7He0J4XlU8ZmpwUbcuIuy4
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2NjU1YWZjNDU3YWExMWZkNWJlMGY2YTQiLCJ1c2VybmFtZSI6IktldmluRCIsInJvbGVzIjpbInVzZXIiXSwiaWF0IjoxNzE2ODkxOTM0LCJleHAiOjE3MTY5NzgzMzR9.hR3muUcm9z-OSEH1CBeJ8KMCT1ygNYrjBBGMEIheDTk
 
 {
-    "restaurantId": "65a0ea10251dac75f2e2ea69",
-    "opinion": "lorem ipsum"
+    "restaurantId": "6655b00d57aa11fd5be0f6a9",
+    "opinion": "lorem ipsum nww"
 }
 
 
