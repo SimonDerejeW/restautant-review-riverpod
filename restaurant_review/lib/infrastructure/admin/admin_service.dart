@@ -15,7 +15,7 @@ class AdminService {
         'Authorization': 'Bearer $token',
       },
     );
-    print(response.body);
+    // print(response.body);
     return response;
   }
 
@@ -28,7 +28,7 @@ class AdminService {
         'Authorization': 'Bearer $token',
       },
     );
-    print(response.body);
+    // print(response.body);
     return response;
   }
 
