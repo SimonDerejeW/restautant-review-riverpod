@@ -5,9 +5,13 @@ class UserTile extends StatelessWidget {
   final String name;
   final String date;
 
-  UserTile({required this.name, required this.date, required this.image}) {
-    if (this.image == '') {
-      this.image = 'assets/images/default_profile.jpg';
+  UserTile(
+      {super.key,
+      required this.name,
+      required this.date,
+      required this.image}) {
+    if (image == '') {
+      image = 'assets/images/default_profile.jpg';
     }
   }
 
@@ -21,13 +25,13 @@ class UserTile extends StatelessWidget {
         ),
         title: Text(
           name,
-          style: TextStyle(fontSize: 15, fontWeight: FontWeight.w900),
+          style: const TextStyle(fontSize: 15, fontWeight: FontWeight.w900),
         ),
         subtitle: Text(
           'Review Date · $date',
-          style: TextStyle(fontSize: 12),
+          style: const TextStyle(fontSize: 12),
         ),
-        trailing: Row(
+        trailing: const Row(
           mainAxisSize: MainAxisSize.min,
           children: [
             Icon(Icons.edit),
