@@ -16,12 +16,48 @@ POST http://localhost:3000/auth/signup HTTP/1.1
 Content-Type: application/json
 
 {
-    "username": "ephi12",
-    "email": "ephi@gmail12.com",
+    "username": "adminbantest",
+    "email": "eph@gmail12.com",
     "password": "123456",
     "roles": "owner" 
 
 }
+
+### login admin
+POST  http://localhost:3000/auth/login HTTP/1.1
+Content-Type: application/json
+
+{
+    "username": "Admin",
+    "password": "123456"
+}
+
+
+### Create Admin
+POST http://localhost:3000/auth/signup HTTP/1.1
+Content-Type: application/json
+
+{
+    "username": "Admin",
+    "email": "admin@gmail.com",
+    "password": "123456",
+    "roles": "admin"
+
+}
+
+
+###BAN USER
+PATCH http://localhost:3000/admin-func/ban/6653b997d1c554ad59a9ba59 HTTP/1.1
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2NjU1Y2U5YzA0ODE0NzgzNGViZTY4NTMiLCJ1c2VybmFtZSI6IkFkbWluIiwicm9sZXMiOlsiYWRtaW4iXSwiaWF0IjoxNzE2ODk5NDg0LCJleHAiOjE3MTY5ODU4ODR9.HgGGfqc5DOjfo38Ie6mkBazBopDi-dP4QKg8NSp6n5k
+
+
+###UNBAN USER
+PATCH http://localhost:3000/admin-func/unban/res1 HTTP/1.1
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2NjU1YzQ0ODZhZDUyYmZlOTA5MzQxMjMiLCJ1c2VybmFtZSI6IkFkbWluIiwicm9sZXMiOlsiYWRtaW4iXSwiaWF0IjoxNzE2ODk3NjQyLCJleHAiOjE3MTY5ODQwNDJ9.ImAZrYVOt1a_aURnzaF10ap_UqbnuGEDiVSbcx25VOk
+
+
 
 
 ###LOG IN
@@ -51,10 +87,11 @@ Content-Type: application/json
 
 POST http://localhost:3000/restaurant HTTP/1.1
 Content-Type: application/json
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2NWExOGQwZmZmOWVjODdmZGM3MjJjODIiLCJ1c2VybmFtZSI6ImVwaGkxMiIsInJvbGVzIjpbIm93bmVyIl0sImlhdCI6MTcwNTA4NjIzOSwiZXhwIjoxNzA1MTcyNjM5fQ.CaM5tQjw82vX_mFprAun9FOnfw0G8zuhyXW7R2UJlK8
-   
-{   "name": "Chick-Fil-A pt.2",
-    "description": "Italian food",
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2NjU1Y2Y4NDA0ODE0NzgzNGViZTY4NTciLCJ1c2VybmFtZSI6ImFkbWluYmFudGVzdCIsInJvbGVzIjpbIm93bmVyIl0sImlhdCI6MTcxNjg5OTcxNiwiZXhwIjoxNzE2OTg2MTE2fQ.1c0DiE8k_c3WmSuZwt-WqEILSAV7R_lflQBUcJWt5D0
+    
+{
+    "name": "KFC",
+    "description": "Fast food",
     "location": "Addis Ababa",
     "contact": "0912345678",
     "openingTime": "8AM",
@@ -63,8 +100,8 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2NWExOGQwZ
 
 ###GET ALL RESTAURANTS
 GET http://localhost:3000/restaurant HTTP/1.1
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2NTlmMWMzOGIyNTlkNTE2MmYxNzZjNmQiLCJ1c2VybmFtZSI6IlNpbW9uRGVyZWplIiwicm9sZXMiOlsidXNlciJdLCJpYXQiOjE3MDUwNDM1MDcsImV4cCI6MTcwNTEyOTkwN30.jjYeQEeeWB4V17gGMqrah9dZiK-MoZnFI1_SJ71A1QQ
-
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2NjU1Y2Y4NDA0ODE0NzgzNGViZTY4NTciLCJ1c2VybmFtZSI6ImFkbWluYmFudGVzdCIsInJvbGVzIjpbIm93bmVyIl0sImlhdCI6MTcxNjg5OTcxNiwiZXhwIjoxNzE2OTg2MTE2fQ.1c0DiE8k_c3WmSuZwt-WqEILSAV7R_lflQBUcJWt5D0
+    
 
 ###GET RESTAURANT BY ID
 GET http://localhost:3000/restaurant/65a0ead5251dac75f2e2ea70 HTTP/1.1
