@@ -48,7 +48,12 @@ class _LogInPageState extends ConsumerState<LogInPage> {
   Widget build(BuildContext context) {
     ref.listen<AuthState>(authNotifierProvider, (previous, next) {
       if (next is AuthAuthenticated) {
-        Navigator.pushNamed(context, '/entry');
+        print(next.user.role);
+        if (next.user.role == 'admin') {
+          Navigator.pushNamed(context, '/adminprofile');
+        } else {
+          Navigator.pushNamed(context, '/entry');
+        }
       } else if (next is AuthError) {
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(content: Text(next.message)),
