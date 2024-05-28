@@ -17,7 +17,7 @@ class AuthNotifier extends StateNotifier<AuthState> {
       result.fold(
         (failure) => state = AuthError(failure.message),
         (user) => state =
-            AuthAuthenticated(user.token), // Assuming user object has a token
+            AuthAuthenticated(user), // Assuming user object has a token
       );
     } else if (event is AuthLogoutRequested) {
       state = AuthLoading();
@@ -32,7 +32,7 @@ class AuthNotifier extends StateNotifier<AuthState> {
           event.username, event.email, event.password, event.role);
       result.fold(
         (failure) => state = AuthError(failure.message),
-        (user) => state = AuthAuthenticated(user.token),
+        (user) => state = AuthAuthenticated(user),
       );
     } else if (event is AuthCheckRequested) {
       // Handle authentication check if necessary
