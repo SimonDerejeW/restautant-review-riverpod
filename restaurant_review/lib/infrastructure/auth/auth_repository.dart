@@ -1,15 +1,17 @@
 import 'dart:convert';
 import 'package:dartz/dartz.dart';
 import 'package:http/http.dart' as http;
-import 'package:restaurant_review/domain/auth_failure.dart';
-import 'package:restaurant_review/domain/auth_repository_interface.dart';
-import 'package:restaurant_review/domain/user.dart';
+import 'package:restaurant_review/domain/auth/auth_failure.dart';
+import 'package:restaurant_review/domain/auth/auth_repository_interface.dart';
+import 'package:restaurant_review/domain/auth/user.dart';
 import 'login_dto.dart';
 import 'signup_dto.dart';
 import 'auth_service.dart';
+import '../../core/storage.dart';
 
 class AuthRepository implements AuthRepositoryInterface {
   final AuthService _authService;
+  final SecureStorage _secureStorage = SecureStorage.instance;
 
   AuthRepository(this._authService);
 
@@ -23,6 +25,10 @@ class AuthRepository implements AuthRepositoryInterface {
         // Assuming the response body contains the user data and token
         //Change to accept token
         final userJson = jsonDecode(response.body);
+
+        // Save the token to secure storage
+        await _secureStorage.write('token', userJson['access_token']);
+
         final user = User(
           token: userJson['access_token'],
           role: userJson['roles']

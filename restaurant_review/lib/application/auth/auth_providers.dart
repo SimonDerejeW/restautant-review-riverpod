@@ -1,8 +1,8 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:restaurant_review/infrastructure/auth/auth_service.dart';
 import 'package:restaurant_review/infrastructure/auth/auth_repository.dart';
-import 'package:restaurant_review/application/auth_notifier.dart';
-import 'package:restaurant_review/application/auth_state.dart';
+import 'package:restaurant_review/application/auth/auth_notifier.dart';
+import 'package:restaurant_review/application/auth/auth_state.dart';
 
 // Define a provider for AuthService
 final authServiceProvider = Provider<AuthService>((ref) {

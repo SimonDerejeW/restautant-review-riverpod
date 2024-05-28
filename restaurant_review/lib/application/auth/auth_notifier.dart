@@ -1,6 +1,6 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:restaurant_review/application/auth_event.dart';
-import 'package:restaurant_review/application/auth_state.dart';
+import 'package:restaurant_review/application/auth/auth_event.dart';
+import 'package:restaurant_review/application/auth/auth_state.dart';
 import 'package:restaurant_review/infrastructure/auth/auth_repository.dart';
 
 class AuthNotifier extends StateNotifier<AuthState> {
@@ -13,7 +13,7 @@ class AuthNotifier extends StateNotifier<AuthState> {
       state = AuthLoading();
       final result =
           await _authRepository.login(event.username, event.password);
-      print("result: $result");
+      // print("result: $result");
       result.fold(
         (failure) => state = AuthError(failure.message),
         (user) => state =

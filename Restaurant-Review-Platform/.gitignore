@@ -1,7 +1,6 @@
 #Ignore the node modules
 node_modules
 package-lock.json
-package.json
 tailwind.config.js
 # compiled output
 /dist

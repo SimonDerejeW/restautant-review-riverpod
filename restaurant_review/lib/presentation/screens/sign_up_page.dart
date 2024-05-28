@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:restaurant_review/application/auth_event.dart';
-import 'package:restaurant_review/application/auth_providers.dart';
-import 'package:restaurant_review/application/auth_state.dart';
+import 'package:restaurant_review/application/auth/auth_event.dart';
+import 'package:restaurant_review/application/auth/auth_providers.dart';
+import 'package:restaurant_review/application/auth/auth_state.dart';
 import 'package:restaurant_review/core/theme/app_pallete.dart';
 import 'package:restaurant_review/presentation/screens/login_in_page.dart';
 import 'package:restaurant_review/presentation/widgets/auth_field.dart';
