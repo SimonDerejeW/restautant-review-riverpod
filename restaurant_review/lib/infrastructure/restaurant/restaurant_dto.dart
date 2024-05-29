@@ -1,3 +1,5 @@
+import 'package:restaurant_review/infrastructure/comment/comment_dto.dart';
+
 class RestaurantDTO {
   final String id;
   final String name;
@@ -7,7 +9,7 @@ class RestaurantDTO {
   final String openingTime;
   final String closingTime;
   final bool isBanned;
-  final List<dynamic> comments;
+  final List<CommentDto> comments;
 
   RestaurantDTO({
     required this.id,
@@ -22,6 +24,9 @@ class RestaurantDTO {
   });
 
   factory RestaurantDTO.fromJson(Map<String, dynamic> json) {
+    var commentsList = json['comments'] as List;
+    List<CommentDto> comments =
+        commentsList.map((comment) => CommentDto.fromJson(comment)).toList();
     return RestaurantDTO(
       id: json['_id'],
       name: json['name'],
@@ -31,7 +36,7 @@ class RestaurantDTO {
       openingTime: json['openingTime'],
       closingTime: json['closingTime'],
       isBanned: json['isBanned'],
-      comments: json['comments']
+      comments: comments,
 
     );
   }
