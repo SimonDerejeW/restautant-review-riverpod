@@ -35,4 +35,48 @@ class UserRepository implements UserRepositoryInterface {
       return left(UserFailure(e.toString()));
     }
   }
+
+  Future<Either<UserFailure, Unit>> changeUsername(String newUsername) async {
+    try {
+      final response = await _userService.changeUsername(newUsername);
+
+      if (response.statusCode == 200) {
+        return right(unit);
+      } else {
+        return left(UserFailure(response.body));
+      }
+    } catch (e) {
+      return left(UserFailure(e.toString()));
+    }
+  }
+
+  Future<Either<UserFailure, Unit>> changePassword(
+      String oldPassword, String newPassword) async {
+    try {
+      final response =
+          await _userService.changePassword(oldPassword, newPassword);
+
+      if (response.statusCode == 200) {
+        return right(unit);
+      } else {
+        return left(UserFailure(response.body));
+      }
+    } catch (e) {
+      return left(UserFailure(e.toString()));
+    }
+  }
+
+  Future<Either<UserFailure, Unit>> deleteAccount() async {
+    try {
+      final response = await _userService.deleteAccount();
+
+      if (response.statusCode == 200) {
+        return right(unit);
+      } else {
+        return left(UserFailure(response.body));
+      }
+    } catch (e) {
+      return left(UserFailure(e.toString()));
+    }
+  }
 }

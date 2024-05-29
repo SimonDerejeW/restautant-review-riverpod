@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'buttons.dart';
 
-
 class ExpansionBar extends StatelessWidget {
   final String title;
   final Color titleColor;
@@ -9,14 +8,17 @@ class ExpansionBar extends StatelessWidget {
   final String childOfButton1;
   final String childOfButton2;
   final Color buttonBackgroundColor;
+  final VoidCallback? onButton1Pressed;
 
-  ExpansionBar(
-      {required this.title,
-      required this.children,
-      this.titleColor = Colors.black,
-      required this.childOfButton1,
-      required this.childOfButton2,
-      required this.buttonBackgroundColor});
+  ExpansionBar({
+    required this.title,
+    required this.children,
+    this.titleColor = Colors.black,
+    required this.childOfButton1,
+    required this.childOfButton2,
+    required this.buttonBackgroundColor,
+    this.onButton1Pressed,
+  });
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -43,6 +45,7 @@ class ExpansionBar extends StatelessWidget {
                 Buttons(
                   text: childOfButton1,
                   backgroundColor: buttonBackgroundColor,
+                  onPressed: onButton1Pressed,
                 ),
                 Buttons(
                   text: childOfButton2,

@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:restaurant_review/application/user/user_event.dart';
 import 'package:restaurant_review/application/user/user_provider.dart';
+import 'package:restaurant_review/presentation/screens/login_in_page.dart';
 import 'package:restaurant_review/presentation/screens/modal_form.dart';
 import '../widgets/text_fields.dart';
 import '../widgets/logout.dart';
@@ -81,10 +83,19 @@ class ProfilePage extends ConsumerWidget {
   }
 }
 
-class Profile extends StatelessWidget {
+class Profile extends ConsumerStatefulWidget {
   final Profile_User user;
 
   Profile({required this.user});
+
+  @override
+  _ProfileState createState() => _ProfileState();
+}
+
+class _ProfileState extends ConsumerState<Profile> {
+  final TextEditingController _oldPasswordController = TextEditingController();
+  final TextEditingController _newPasswordController = TextEditingController();
+  final TextEditingController _newUsernameController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -103,7 +114,7 @@ class Profile extends StatelessWidget {
                       AssetImage('assets/images/default_profile.jpg'),
                 ),
                 title: Text(
-                  user.username,
+                  widget.user.username,
                   style: TextStyle(fontSize: 20, fontWeight: FontWeight.w900),
                 ),
                 subtitle: Text(
@@ -123,8 +134,8 @@ class Profile extends StatelessWidget {
               ),
             ),
             UserInfo(
-              name: user.username,
-              email: user.email,
+              name: widget.user.username,
+              email: widget.user.email,
               phoneNumber: '+251951479135', // Add phone number if available
             ),
             Container(
@@ -144,14 +155,54 @@ class Profile extends StatelessWidget {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Textfields(subtitles: 'Enter Old Password'),
-                    Textfields(subtitles: 'Enter New Password'),
+                    TextField(
+                      controller: _oldPasswordController,
+                      decoration:
+                          InputDecoration(labelText: "Enter Old Password"),
+                      obscureText: true,
+                    ),
+                    TextField(
+                      controller: _newPasswordController,
+                      decoration:
+                          InputDecoration(labelText: "Enter New Password"),
+                      obscureText: true,
+                    ),
                   ],
                 ),
               ),
               childOfButton1: 'Save Changes',
               childOfButton2: 'Cancel',
               buttonBackgroundColor: Color.fromARGB(255, 255, 115, 0),
+              onButton1Pressed: () {
+                ref.read(userNotifierProvider.notifier).mapEventToState(
+                      ChangePasswordRequested(_oldPasswordController.text,
+                          _newPasswordController.text),
+                    );
+              },
+            ),
+            ExpansionBar(
+              title: 'Change Username',
+              children: Container(
+                padding: EdgeInsets.only(left: 15),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    TextField(
+                      controller: _newUsernameController,
+                      decoration:
+                          InputDecoration(labelText: "Enter New Username"),
+                    ),
+                  ],
+                ),
+              ),
+              childOfButton1: 'Save Changes',
+              childOfButton2: 'Cancel',
+              buttonBackgroundColor: Color.fromARGB(255, 255, 115, 0),
+              onButton1Pressed: () {
+                ref.read(userNotifierProvider.notifier).mapEventToState(
+                      ChangeUsernameRequested(_newUsernameController.text),
+                    );
+              },
             ),
             Container(
               child: ExpansionBar(
@@ -159,9 +210,7 @@ class Profile extends StatelessWidget {
                 titleColor: Colors.red,
                 children: Row(
                   children: [
-                    SizedBox(
-                      width: 15,
-                    ),
+                    SizedBox(width: 15),
                     Expanded(
                         child: Text(
                             'Are you sure you want to delete your account?')),
@@ -170,18 +219,37 @@ class Profile extends StatelessWidget {
                 childOfButton1: 'Confirm',
                 childOfButton2: 'Cancel',
                 buttonBackgroundColor: Colors.red,
+                onButton1Pressed: () {
+                  ref.read(userNotifierProvider.notifier).mapEventToState(
+                        DeleteAccountRequested(),
+                      );
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => LogInPage(),
+                    ),
+                  );
+                },
               ),
             ),
             Container(
               margin: EdgeInsets.only(top: 20),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.center,
-                children: [LogOut()],
+                children: [GestureDetector(child: LogOut())],
               ),
             ),
           ],
         ),
       ),
     );
+  }
+
+  @override
+  void dispose() {
+    _oldPasswordController.dispose();
+    _newPasswordController.dispose();
+    _newUsernameController.dispose();
+    super.dispose();
   }
 }

@@ -16,6 +16,12 @@ class UserNotifier extends StateNotifier<UserState> {
   Future<void> mapEventToState(UserEvent event) async {
     if (event is FetchUserRequested) {
       await _fetchUser();
+    } else if (event is ChangeUsernameRequested) {
+      await _changeUsername(event.newUsername);
+    } else if (event is ChangePasswordRequested) {
+      await _changePassword(event.oldPassword, event.newPassword);
+    } else if (event is DeleteAccountRequested) {
+      await _deleteAccount();
     }
   }
 
@@ -25,6 +31,32 @@ class UserNotifier extends StateNotifier<UserState> {
     userOrFailure.fold(
       (failure) => state = UserError(failure.message),
       (user) => state = UserLoaded(user),
+    );
+  }
+
+  Future<void> _changeUsername(String newUsername) async {
+    final result = await _userRepository.changeUsername(newUsername);
+    result.fold(
+      (failure) => state = UserError(failure.message),
+      (success) => state = UserLoaded(
+          (state as UserLoaded).user.copyWith(username: newUsername)),
+    );
+  }
+
+  Future<void> _changePassword(String oldPassword, String newPassword) async {
+    final result =
+        await _userRepository.changePassword(oldPassword, newPassword);
+    result.fold(
+      (failure) => state = UserError(failure.message),
+      (success) => state = UserLoaded((state as UserLoaded).user),
+    );
+  }
+
+  Future<void> _deleteAccount() async {
+    final result = await _userRepository.deleteAccount();
+    result.fold(
+      (failure) => state = UserError(failure.message),
+      (success) => state = UserInitial(),
     );
   }
 }

@@ -34,7 +34,72 @@ class UserService {
     final response = await http.get(url, headers: headers);
 
     // Parse and return the response data
-    print(response.body);
+    // print(response.body);
+    return response;
+  }
+
+  // Method to change username
+  Future<http.Response> changeUsername(String newUsername) async {
+    String? token = await _secureStorage.read('token');
+    if (token == null) {
+      throw Exception('Token not found');
+    }
+    Map<String, dynamic> payload = JwtDecoder.decode(token);
+    String userId = payload['sub'];
+
+    final url = Uri.parse('$baseUrl/users/changeUserName/$userId');
+    final headers = {
+      'Content-Type': 'application/json',
+      "Authorization": "Bearer $token"
+    };
+
+    final body = json.encode({'new_username': newUsername});
+    final response = await http.patch(url, headers: headers, body: body);
+    return response;
+  }
+
+  // Method to change password
+  Future<http.Response> changePassword(
+      String oldPassword, String newPassword) async {
+    String? token = await _secureStorage.read('token');
+
+    if (token == null) {
+      throw Exception('Token not found');
+    }
+
+    Map<String, dynamic> payload = JwtDecoder.decode(token);
+    String userId = payload['sub'];
+
+    final url = Uri.parse('$baseUrl/users/changePassword/$userId');
+    final headers = {
+      'Content-Type': 'application/json',
+      "Authorization": "Bearer $token"
+    };
+
+    final body =
+        json.encode({'old_password': oldPassword, 'new_password': newPassword});
+    final response = await http.patch(url, headers: headers, body: body);
+    return response;
+  }
+
+  // Method to delete account
+  Future<http.Response> deleteAccount() async {
+    String? token = await _secureStorage.read('token');
+
+    if (token == null) {
+      throw Exception('Token not found');
+    }
+
+    Map<String, dynamic> payload = JwtDecoder.decode(token);
+    String userId = payload['sub'];
+
+    final url = Uri.parse('$baseUrl/users/$userId');
+    final headers = {
+      'Content-Type': 'application/json',
+      "Authorization": "Bearer $token"
+    };
+
+    final response = await http.delete(url, headers: headers);
     return response;
   }
 }
