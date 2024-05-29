@@ -51,13 +51,30 @@ export class UsersController {
     }
   }
 
-  @Patch(':id')
-  update(@Param('id') id: string, @Body() updateUserDto: UpdateUserDto) {
-    return this.usersService.update(+id, updateUserDto);
+  //change user name
+  @Patch('/changeUserName/:id')
+  @UseGuards(AuthGuard, RolesGuard)
+  updateUsername(
+    @Param('id') id: string,
+    @Body() updateUserDto: UpdateUserDto,
+  ) {
+    return this.usersService.updateUsername(id, updateUserDto);
   }
 
+  //change user password
+  @Patch('/changePassword/:id')
+  @UseGuards(AuthGuard, RolesGuard)
+  updatePassword(
+    @Param('id') id: string,
+    @Body() updateUserDto: UpdateUserDto,
+  ) {
+    return this.usersService.updatePassword(id, updateUserDto);
+  }
+
+  //delete account
   @Delete(':id')
+  @UseGuards(AuthGuard, RolesGuard)
   remove(@Param('id') id: string) {
-    return this.usersService.remove(+id);
+    return this.usersService.remove(id);
   }
 }
