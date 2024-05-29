@@ -1,19 +1,22 @@
+
+
 import 'package:flutter/material.dart';
 
 class UserTile extends StatelessWidget {
-  late String image;
+  final String image;
   final String name;
   final String date;
+  final VoidCallback onEdit;
+  final VoidCallback onDelete;
 
-  UserTile(
-      {super.key,
-      required this.name,
-      required this.date,
-      required this.image}) {
-    if (image == '') {
-      image = 'assets/images/default_profile.jpg';
-    }
-  }
+  const UserTile({
+    super.key,
+    required this.name,
+    required this.date,
+    required this.image,
+    required this.onEdit,
+    required this.onDelete,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -31,14 +34,20 @@ class UserTile extends StatelessWidget {
           'Review Date · $date',
           style: const TextStyle(fontSize: 12),
         ),
-        trailing: const Row(
+        trailing: Row(
           mainAxisSize: MainAxisSize.min,
           children: [
-            Icon(Icons.edit),
-            SizedBox(width: 12),
-            Icon(
-              Icons.delete,
-              color: Colors.red,
+            IconButton(
+              icon: const Icon(Icons.edit),
+              onPressed: onEdit,
+            ),
+            const SizedBox(width: 12),
+            IconButton(
+              icon: const Icon(
+                Icons.delete,
+                color: Colors.red,
+              ),
+              onPressed: onDelete,
             ),
           ],
         ),
