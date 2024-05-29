@@ -1,8 +1,6 @@
 import 'package:http/http.dart' as http;
-import 'dart:convert';
 
 import 'package:restaurant_review/core/url.dart';
-import 'package:restaurant_review/infrastructure/restaurant/restaurant_dto.dart';
 import '../../core/storage.dart';
 
 class RestaurantService {

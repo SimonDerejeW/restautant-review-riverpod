@@ -1,6 +1,5 @@
 import 'package:restaurant_review/domain/admin/users_model.dart';
 
-
 List<CustomerModel> customerData = [
   CustomerModel(
     name: "Alice",
