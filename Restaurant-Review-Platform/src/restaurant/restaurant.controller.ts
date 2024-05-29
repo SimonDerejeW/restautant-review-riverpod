@@ -85,7 +85,7 @@ export class RestaurantController {
   @Roles(UserRole.OWNER)
   async getRestaurantsByOwner(
     @Param('ownerId') ownerId: string,
-  ): Promise<Restaurant[]> {
+  ): Promise<Restaurant> {
     return this.restaurantService.getRestaurantsByOwner(ownerId);
   }
 }

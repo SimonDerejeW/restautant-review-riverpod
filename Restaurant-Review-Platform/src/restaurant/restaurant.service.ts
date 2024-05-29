@@ -105,9 +105,9 @@ export class RestaurantService {
   }
 
   // Get all restaurants by owner
-  async getRestaurantsByOwner(ownerId: string): Promise<Restaurant[]> {
+  async getRestaurantsByOwner(ownerId: string): Promise<Restaurant> {
     const restaurants = await this.restaurantModel
-      .find({ ownerId })
+      .findOne({ ownerId })
       .populate('comments')
       .exec();
     return restaurants;
