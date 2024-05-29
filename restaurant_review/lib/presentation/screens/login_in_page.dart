@@ -80,7 +80,7 @@ class _LogInPageState extends ConsumerState<LogInPage> {
                 height: 30,
               ),
               AuthField(
-                hintText: "Email",
+                hintText: "Username",
                 controller: emailController,
               ),
               const SizedBox(

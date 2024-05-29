@@ -1,12 +1,16 @@
 /* eslint-disable prettier/prettier */
-import { Injectable, HttpException, HttpStatus, BadRequestException } from '@nestjs/common';
+import {
+  Injectable,
+  HttpException,
+  HttpStatus,
+  BadRequestException,
+} from '@nestjs/common';
 import { Restaurant, RestaurantDocument } from 'src/schemas/restaurant.schema';
 import { CreateRestaurantDto } from './dto/create-restaurant.dto';
 import { UpdateRestaurantDto } from './dto/update-restaurant.dto';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
 import { Query } from 'express-serve-static-core';
-
 
 @Injectable()
 export class RestaurantService {
@@ -16,29 +20,36 @@ export class RestaurantService {
   ) {}
 
   async getRestaurants(query: Query): Promise<Restaurant[]> {
-
     const resPerPage = 20;
     const currentPage = Number(query.page) || 1;
     const skip = resPerPage * (currentPage - 1);
 
+    const keyword = query.keyword
+      ? {
+          name: {
+            $regex: query.keyword,
+            $options: 'i',
+          },
+        }
+      : {};
 
+    const ownerId = query.ownerId ? { ownerId: query.ownerId } : {};
 
-    const keyword = query.keyword ? {
-      name: {
-        $regex: query.keyword,
-        $options: 'i',
-      },
-    } : {};
-
-    const ownerId = query.ownerId ? {ownerId: query.ownerId} : {};
-    
-    const restaurants = await this.restaurantModel.find({ ...keyword, ...ownerId }).populate("comments").limit(resPerPage).skip(skip).exec();
+    const restaurants = await this.restaurantModel
+      .find({ ...keyword, ...ownerId })
+      .populate('comments')
+      .limit(resPerPage)
+      .skip(skip)
+      .exec();
 
     return restaurants;
   }
 
   async getRestaurant(id: string): Promise<Restaurant> {
-    const restaurant = await this.restaurantModel.findById(id).populate('comments').exec();
+    const restaurant = await this.restaurantModel
+      .findById(id)
+      .populate('comments')
+      .exec();
 
     if (!restaurant) {
       throw new HttpException('Restaurant not found', HttpStatus.NOT_FOUND);
@@ -65,12 +76,15 @@ export class RestaurantService {
     }
 
     if (restaurant.ownerId !== ownerId) {
-      throw new HttpException('You can only update your own restaurants', HttpStatus.UNAUTHORIZED);
+      throw new HttpException(
+        'You can only update your own restaurants',
+        HttpStatus.UNAUTHORIZED,
+      );
     }
 
     return await this.restaurantModel
-    .findByIdAndUpdate(id, updateRestaurantDto, { new: true })
-    .exec();;
+      .findByIdAndUpdate(id, updateRestaurantDto, { new: true })
+      .exec();
   }
 
   async removeRestaurant(id: string, ownerId: string): Promise<Restaurant> {
@@ -80,10 +94,22 @@ export class RestaurantService {
     }
 
     if (tobeRemoved.ownerId !== ownerId) {
-      throw new HttpException('You can only update your own restaurants', HttpStatus.UNAUTHORIZED)
+      throw new HttpException(
+        'You can only update your own restaurants',
+        HttpStatus.UNAUTHORIZED,
+      );
     }
 
     await this.restaurantModel.findByIdAndDelete(id).exec();
     return tobeRemoved;
+  }
+
+  // Get all restaurants by owner
+  async getRestaurantsByOwner(ownerId: string): Promise<Restaurant> {
+    const restaurants = await this.restaurantModel
+      .findOne({ ownerId })
+      .populate('comments')
+      .exec();
+    return restaurants;
   }
 }

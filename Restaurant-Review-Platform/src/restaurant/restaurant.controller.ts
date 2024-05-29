@@ -78,4 +78,14 @@ export class RestaurantController {
   ): Promise<Restaurant> {
     return this.restaurantService.removeRestaurant(id, request.user['sub']);
   }
+
+  // Get restaurants by owner
+  @Get('owner/:ownerId')
+  @UseGuards(AuthGuard, RolesGuard)
+  @Roles(UserRole.OWNER)
+  async getRestaurantsByOwner(
+    @Param('ownerId') ownerId: string,
+  ): Promise<Restaurant> {
+    return this.restaurantService.getRestaurantsByOwner(ownerId);
+  }
 }
