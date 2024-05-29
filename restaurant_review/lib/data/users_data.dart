@@ -1,4 +1,4 @@
-import 'package:restaurant_review/models/users_model.dart';
+import 'package:restaurant_review/domain/admin/users_model.dart';
 
 List<CustomerModel> customerData = [
   CustomerModel(

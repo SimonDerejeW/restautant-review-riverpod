@@ -51,7 +51,7 @@ class _SignUpPageState extends ConsumerState<SignUpPage> {
         );
       } else {
         ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(content: Text('Please select a user type')),
+          const SnackBar(content: Text('Please select a user type')),
         );
       }
     }
