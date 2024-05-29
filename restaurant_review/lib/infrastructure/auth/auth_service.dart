@@ -1,4 +1,5 @@
 import 'package:http/http.dart' as http;
+import 'package:restaurant_review/core/storage.dart';
 import 'dart:convert';
 
 import 'package:restaurant_review/core/url.dart';
@@ -7,6 +8,7 @@ import 'package:restaurant_review/infrastructure/auth/signup_dto.dart';
 
 class AuthService {
   final String baseUrl = Domain.url;
+  final SecureStorage _secureStorage = SecureStorage.instance;
 
   // Method to handle user login using LoginDTO
   Future<http.Response> login(LoginDTO loginDto) async {
@@ -40,5 +42,9 @@ class AuthService {
 
     // Parse and return the response data
     return response;
+  }
+
+  Future<void> logout() async {
+    await _secureStorage.delete('token');
   }
 }

@@ -1,20 +1,40 @@
+// Inside the LogOut widget
+
 import 'package:flutter/material.dart';
+import 'package:restaurant_review/infrastructure/auth/auth_service.dart';
+import 'package:restaurant_review/presentation/screens/login_in_page.dart';
 
 class LogOut extends StatelessWidget {
+  final AuthService authService = AuthService();
+
   @override
   Widget build(BuildContext context) {
-    return Center(
+    return GestureDetector(
+      onTap: () {
+        // Call the logout method
+        authService.logout();
+        // Navigate back to the login page
+        Navigator.push(
+          context,
+          MaterialPageRoute(
+            builder: (context) => LogInPage(),
+          ),
+        );
+      },
+      child: Center(
         child: Row(
-      children: [
-        Icon(Icons.logout),
-        SizedBox(
-          width: 10,
+          children: [
+            Icon(Icons.logout),
+            SizedBox(
+              width: 10,
+            ),
+            Text(
+              'Log Out',
+              style: TextStyle(fontSize: 15, fontWeight: FontWeight.bold),
+            )
+          ],
         ),
-        Text(
-          'Log Out',
-          style: TextStyle(fontSize: 15, fontWeight: FontWeight.bold),
-        )
-      ],
-    ));
+      ),
+    );
   }
 }
