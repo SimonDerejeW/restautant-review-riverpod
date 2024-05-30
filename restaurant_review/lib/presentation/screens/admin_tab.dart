@@ -75,6 +75,8 @@ class _AdminTabState extends ConsumerState<AdminTab> {
                     ListView.builder(
                       itemCount: state.owners.length,
                       itemBuilder: (context, index) => UsersView(
+                        
+                        key: ValueKey(state.owners[index].name),
                         name: state.owners[index].name,
                         isBanned: state.owners[index].isBanned,
                         onChanged: (value) => toggleBanOwner(index, value),
@@ -83,6 +85,7 @@ class _AdminTabState extends ConsumerState<AdminTab> {
                     ListView.builder(
                       itemCount: state.customers.length,
                       itemBuilder: (context, index) => UsersView(
+                        key: ValueKey(state.customers[index].name),
                         name: state.customers[index].name,
                         isBanned: state.customers[index].isBanned,
                         onChanged: (value) => toggleBanCustomer(index, value),
