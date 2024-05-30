@@ -6,7 +6,8 @@ class UserInfo extends StatelessWidget {
   final String phoneNumber;
   final String email;
 
-  UserInfo({
+  const UserInfo({
+    super.key, 
     required this.name,
     required this.phoneNumber,
     required this.email,
@@ -19,59 +20,62 @@ class UserInfo extends StatelessWidget {
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            Text(
+            const Text(
               'Username',
               style: TextStyle(fontWeight: FontWeight.bold, fontSize: 15),
             ),
-            SizedBox(
+            const SizedBox(
               width: 90,
             ),
             Expanded(
               child: Text(
                 name,
-                style: TextStyle(fontWeight: FontWeight.bold, fontSize: 15),
+                style:
+                    const TextStyle(fontWeight: FontWeight.bold, fontSize: 15),
               ),
             ),
           ],
         ),
-        SizedBox(
+        const SizedBox(
           height: 10,
         ),
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            Text(
+            const Text(
               'Email Address',
               style: TextStyle(fontWeight: FontWeight.bold, fontSize: 15),
             ),
-            SizedBox(
+            const SizedBox(
               width: 60,
             ),
             Expanded(
               child: Text(
                 email,
-                style: TextStyle(fontWeight: FontWeight.bold, fontSize: 15),
+                style:
+                    const TextStyle(fontWeight: FontWeight.bold, fontSize: 15),
               ),
             ),
           ],
         ),
-        SizedBox(
+        const SizedBox(
           height: 10,
         ),
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            Text(
+            const Text(
               'Phone Number',
               style: TextStyle(fontWeight: FontWeight.bold, fontSize: 15),
             ),
-            SizedBox(
+            const SizedBox(
               width: 55,
             ),
             Expanded(
               child: Text(
                 phoneNumber,
-                style: TextStyle(fontWeight: FontWeight.bold, fontSize: 15),
+                style:
+                    const TextStyle(fontWeight: FontWeight.bold, fontSize: 15),
               ),
             ),
           ],

@@ -5,11 +5,15 @@ class Buttons extends StatelessWidget {
   final Color backgroundColor;
   final VoidCallback? onPressed;
 
-  Buttons({required this.text, required this.backgroundColor, this.onPressed});
+  const Buttons(
+      {super.key,
+      required this.text,
+      required this.backgroundColor,
+      this.onPressed});
 
   @override
   Widget build(BuildContext context) {
-    return Container(
+    return SizedBox(
       height: 30,
       // width: 100,
       // constraints: BoxConstraints(
@@ -17,17 +21,17 @@ class Buttons extends StatelessWidget {
       // ),
       child: ElevatedButton(
           onPressed: onPressed,
-          child: Text(
-            text,
-            style: TextStyle(color: Colors.white, fontSize: 12),
-          ),
           style: ButtonStyle(
-            backgroundColor: MaterialStateProperty.all<Color>(backgroundColor),
-            shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+            backgroundColor: WidgetStateProperty.all<Color>(backgroundColor),
+            shape: WidgetStateProperty.all<RoundedRectangleBorder>(
               RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(8),
               ),
             ),
+          ),
+          child: Text(
+            text,
+            style: const TextStyle(color: Colors.white, fontSize: 12),
           )),
     );
   }
