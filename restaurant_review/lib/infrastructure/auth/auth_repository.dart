@@ -35,7 +35,7 @@ class AuthRepository implements AuthRepositoryInterface {
         );
         return right(user);
       } else {
-        return left(AuthFailure(response.body));
+        return left(AuthFailure(jsonDecode(response.body)['message']));
       }
     } catch (e) {
       return left(AuthFailure(e.toString()));
@@ -66,7 +66,7 @@ class AuthRepository implements AuthRepositoryInterface {
         );
         return right(newUser);
       } else {
-        return left(AuthFailure(response.body));
+        return left(AuthFailure(jsonDecode(response.body)['message']));
       }
     } catch (e) {
       return left(AuthFailure(e.toString()));

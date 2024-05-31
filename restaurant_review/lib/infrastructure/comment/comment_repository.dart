@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:dartz/dartz.dart';
 import 'package:restaurant_review/domain/auth/auth_failure.dart';
 import 'package:restaurant_review/domain/comment/comment_repository_interface.dart';
@@ -19,7 +21,7 @@ class CommentRepository implements CommentRepositoryInterface {
       if (response.statusCode == 200 || response.statusCode == 201) {
         return right(unit);
       } else {
-        return left(AuthFailure(response.body));
+        return left(AuthFailure(jsonDecode(response.body)['message']));
       }
     } catch (e) {
       return left(AuthFailure(e.toString()));
@@ -38,7 +40,7 @@ class CommentRepository implements CommentRepositoryInterface {
       if (response.statusCode == 200 || response.statusCode == 204) {
         return right(unit);
       } else {
-        return left(AuthFailure(response.body));
+        return left(AuthFailure(jsonDecode(response.body)['message']));
       }
     } catch (e) {
       return left(AuthFailure(e.toString()));
@@ -54,7 +56,7 @@ class CommentRepository implements CommentRepositoryInterface {
       if (response.statusCode == 200 || response.statusCode == 204) {
         return right(unit);
       } else {
-        return left(AuthFailure(response.body));
+        return left(AuthFailure(jsonDecode(response.body)['message']));
       }
     } catch (e) {
       return left(AuthFailure(e.toString()));
