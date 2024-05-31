@@ -51,7 +51,7 @@ class _LogInPageState extends ConsumerState<LogInPage> {
       if (next is AuthAuthenticated) {
         print(next.user.role);
         if (next.user.role == 'admin') {
-          Navigator.pushNamed(context, '/adminprofile');
+          context.go('/adminprofile');
         } else {
           context.go('/home');
         }
