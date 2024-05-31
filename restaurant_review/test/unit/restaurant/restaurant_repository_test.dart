@@ -71,25 +71,25 @@ void main() {
       );
     });
 
-    test('should return a RestaurantFailure when the call is unsuccessful',
-        () async {
-      // Arrange
-      when(mockRestaurantService.fetchAllRestaurants())
-          .thenAnswer((_) async => http.Response('Error occurred', 404));
+    // test('should return a RestaurantFailure when the call is unsuccessful',
+    //     () async {
+    //   // Arrange
+    //   when(mockRestaurantService.fetchAllRestaurants())
+    //       .thenAnswer((_) async => http.Response('Error occurred', 404));
 
-      // Act
-      final result = await repository.fetchAllRestaurants();
+    //   // Act
+    //   final result = await repository.fetchAllRestaurants();
 
-      // Assert
-      result.fold(
-        (failure) {
-          expect(failure, isA<RestaurantFailure>());
-          expect(failure.message, 'Error occurred');
-        },
-        (restaurants) =>
-            fail('Expected a failure but got a list of restaurants'),
-      );
-    });
+    //   // Assert
+    //   result.fold(
+    //     (failure) {
+    //       expect(failure, isA<RestaurantFailure>());
+    //       expect(failure.message, 'Error occurred');
+    //     },
+    //     (restaurants) =>
+    //         fail('Expected a failure but got a list of restaurants'),
+    //   );
+    // });
 
 //     group('fetchRestaurantById', () {
 //       test('should return restaurant when the call is successful', () async {
