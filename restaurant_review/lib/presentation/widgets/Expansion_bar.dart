@@ -9,6 +9,7 @@ class ExpansionBar extends StatelessWidget {
   final String childOfButton2;
   final Color buttonBackgroundColor;
   final VoidCallback? onButton1Pressed;
+  final VoidCallback? onButton2Pressed;
 
   ExpansionBar({
     required this.title,
@@ -18,6 +19,7 @@ class ExpansionBar extends StatelessWidget {
     required this.childOfButton2,
     required this.buttonBackgroundColor,
     this.onButton1Pressed,
+    this.onButton2Pressed,
   });
   @override
   Widget build(BuildContext context) {
@@ -50,6 +52,7 @@ class ExpansionBar extends StatelessWidget {
                 Buttons(
                   text: childOfButton2,
                   backgroundColor: Colors.grey,
+                  onPressed: onButton2Pressed,
                 ),
               ],
             ),
