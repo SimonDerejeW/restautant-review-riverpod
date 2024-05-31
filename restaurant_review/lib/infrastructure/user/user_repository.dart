@@ -29,7 +29,7 @@ class UserRepository implements UserRepositoryInterface {
 
         return right(user);
       } else {
-        return left(UserFailure(response.body));
+        return left(UserFailure(jsonDecode(response.body)['message']));
       }
     } catch (e) {
       return left(UserFailure(e.toString()));
@@ -43,7 +43,7 @@ class UserRepository implements UserRepositoryInterface {
       if (response.statusCode == 200) {
         return right(true);
       } else {
-        return left(UserFailure(response.body));
+        return left(UserFailure(jsonDecode(response.body)['message']));
       }
     } catch (e) {
       return left(UserFailure(e.toString()));
@@ -59,7 +59,7 @@ class UserRepository implements UserRepositoryInterface {
       if (response.statusCode == 200) {
         return right(true);
       } else {
-        return left(UserFailure(response.body));
+        return left(UserFailure(jsonDecode(response.body)['message']));
       }
     } catch (e) {
       return left(UserFailure(e.toString()));
@@ -73,7 +73,7 @@ class UserRepository implements UserRepositoryInterface {
       if (response.statusCode == 200) {
         return right(unit);
       } else {
-        return left(UserFailure(response.body));
+        return left(UserFailure(jsonDecode(response.body)['message']));
       }
     } catch (e) {
       return left(UserFailure(e.toString()));

@@ -23,7 +23,7 @@ class RestaurantRepository implements RestaurantRepositoryInterface {
             body.map((json) => RestaurantDTO.fromJson(json)).toList();
         return right(restaurants);
       } else {
-        return left(RestaurantFailure(response.body));
+        return left(RestaurantFailure(jsonDecode(response.body)['message']));
       }
     } catch (e) {
       return left(RestaurantFailure(e.toString()));
@@ -40,7 +40,7 @@ class RestaurantRepository implements RestaurantRepositoryInterface {
         final restaurant = RestaurantDTO.fromJson(body);
         return right(restaurant);
       } else {
-        return left(RestaurantFailure(response.body));
+        return left(RestaurantFailure(jsonDecode(response.body)['message']));
       }
     } catch (e) {
       return left(RestaurantFailure(e.toString()));
@@ -83,7 +83,7 @@ class RestaurantRepository implements RestaurantRepositoryInterface {
               final createdRestaurant = CreateRestaurantDTO.fromJson(body);
               return right(createdRestaurant);
             } else {
-              return left(RestaurantFailure(response.body));
+              return left(RestaurantFailure(jsonDecode(response.body)['message']));
             }
           } catch (e) {
             return left(RestaurantFailure(e.toString()));
@@ -138,7 +138,7 @@ class RestaurantRepository implements RestaurantRepositoryInterface {
               
               return right(updatedRestaurant);
             } else {
-              return left(RestaurantFailure(response.body));
+              return left(RestaurantFailure(jsonDecode(response.body)['message']));
             }
           } catch (e) {
             return left(RestaurantFailure(e.toString()));
@@ -167,7 +167,7 @@ class RestaurantRepository implements RestaurantRepositoryInterface {
             if (response.statusCode == 200) {
               return right(unit);
             } else {
-              return left(RestaurantFailure(response.body));
+              return left(RestaurantFailure(jsonDecode(response.body)['message']));
             }
           } catch (e) {
             return left(RestaurantFailure(e.toString()));
