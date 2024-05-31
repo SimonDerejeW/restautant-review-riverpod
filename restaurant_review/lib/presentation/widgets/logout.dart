@@ -1,5 +1,4 @@
 // Inside the LogOut widget
-
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:restaurant_review/infrastructure/auth/auth_service.dart';

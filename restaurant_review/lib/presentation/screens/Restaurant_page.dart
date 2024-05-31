@@ -10,6 +10,7 @@ import 'package:restaurant_review/application/retaurant/restaurant_state.dart';
 import 'package:restaurant_review/infrastructure/restaurant/restaurant_dto.dart';
 import 'package:restaurant_review/presentation/widgets/dialog_box.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:go_router/go_router.dart';
 import '../widgets/comments.dart';
 import '../widgets/list_tile.dart';
 import '../widgets/user_tile.dart';
@@ -34,9 +35,7 @@ class _RestaurantPageState extends ConsumerState<RestaurantPage> {
     });
   }
 
-  void cancelTask() {
-    Navigator.of(context).pop();
-  }
+  
 
   void createNewComment() {
     print(widget.restaurantId);
@@ -44,7 +43,7 @@ class _RestaurantPageState extends ConsumerState<RestaurantPage> {
       context: context,
       builder: (context) {
         return DialogBox(
-          onCancel: cancelTask,
+          onCancel: (){},
           onSubmit: (opinion) {
             ref.read(commentNotifierProvider.notifier).mapEventToState(
                   CreateComment(widget.restaurantId, opinion),
@@ -253,7 +252,7 @@ class _RestaurantPageState extends ConsumerState<RestaurantPage> {
       builder: (context) {
         return DialogBox(
           initialOpinion: currentOpinion,
-          onCancel: cancelTask,
+          onCancel: (){},
           onSubmit: (newOpinion) {
             ref.read(commentNotifierProvider.notifier).mapEventToState(
                   UpdateComment(commentId, newOpinion, widget.restaurantId),

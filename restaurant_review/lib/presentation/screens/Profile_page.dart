@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:go_router/go_router.dart';
 import 'package:restaurant_review/application/user/user_event.dart';
 import 'package:restaurant_review/application/user/user_provider.dart';
 import 'package:restaurant_review/presentation/screens/login_in_page.dart';
@@ -21,6 +22,15 @@ class ProfilePage extends ConsumerWidget {
       if (next is UserError) {
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(content: Text(next.message)),
+        );
+      } else if(next is UsernameChangeSuccess){
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(content: Text('Username changed successfully')),
+        );
+      
+      }else if (next is PasswordChangeSuccess) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(content: Text('Password changed successfully')),
         );
       }
     });
@@ -72,7 +82,7 @@ class ProfilePage extends ConsumerWidget {
         ),
       );
     } else if (userState is UserError) {
-      body = Center(child: Text('Error: ${userState.message}'));
+      body = Center(child: Text('Error: ${userState.message}' , style: TextStyle(fontSize: 12),));
     } else {
       body = const Center(child: CircularProgressIndicator());
     }
@@ -178,6 +188,7 @@ class _ProfileState extends ConsumerState<Profile> {
                 ref.read(userNotifierProvider.notifier).mapEventToState(
                       ChangePasswordRequested(_oldPasswordController.text,
                           _newPasswordController.text),
+                
                     );
               },
             ),
@@ -224,12 +235,7 @@ class _ProfileState extends ConsumerState<Profile> {
                   ref.read(userNotifierProvider.notifier).mapEventToState(
                         DeleteAccountRequested(),
                       );
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) => LogInPage(),
-                    ),
-                  );
+                  context.go('/login');
                 },
               ),
             ),
