@@ -110,6 +110,9 @@ export class RestaurantService {
       .findOne({ ownerId })
       .populate('comments')
       .exec();
-    return restaurants;
+    if (restaurants) {
+    return restaurants;} else{
+      return new Restaurant();
+    }
   }
 }
