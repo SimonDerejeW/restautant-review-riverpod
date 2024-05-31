@@ -14,7 +14,7 @@ class LogOut extends StatelessWidget {
         // Call the logout method
         authService.logout();
         // Navigate back to the login page
-        Navigator.push(
+        Navigator.pushReplacement(
           context,
           MaterialPageRoute(
             builder: (context) => LogInPage(),
