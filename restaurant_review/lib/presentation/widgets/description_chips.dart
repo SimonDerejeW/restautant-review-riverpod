@@ -12,7 +12,7 @@ class RestaurantChips extends StatelessWidget {
             materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
             label: Text(
               labelText,
-              style: TextStyle(
+        style: const TextStyle(
                 color: Colors.white,
                 fontSize: 12
               ),

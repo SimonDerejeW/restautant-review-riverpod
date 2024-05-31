@@ -1,6 +1,5 @@
 import 'dart:convert';
 import 'package:dartz/dartz.dart';
-import 'package:http/http.dart' as http;
 import 'package:restaurant_review/domain/auth/auth_failure.dart';
 import 'package:restaurant_review/domain/auth/auth_repository_interface.dart';
 import 'package:restaurant_review/domain/auth/user.dart';

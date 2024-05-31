@@ -58,7 +58,9 @@ class _DialogBoxState extends State<DialogBox> {
                 const SizedBox(width: 8),
                 MyDialogButton(
                   text: "Cancel",
-                  onPressed: widget.onCancel,
+                  onPressed: () {
+                    widget.onCancel();Navigator.of(context).pop();
+                  },
                 ),
               ],
             ),
