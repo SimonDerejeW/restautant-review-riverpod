@@ -77,10 +77,10 @@ packages:
     dependency: "direct dev"
     description:
       name: build_runner
-      sha256: "3ac61a79bfb6f6cc11f693591063a7f19a7af628dc52f141743edac5c16e8c22"
+      sha256: "1414d6d733a85d8ad2f1dfcb3ea7945759e35a123cb99ccfac75d0758f75edfa"
       url: "https://pub.dev"
     source: hosted
-    version: "2.4.9"
+    version: "2.4.10"
   build_runner_core:
     dependency: transitive
     description:
@@ -153,8 +153,6 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "3.1.1"
-<<<<<<< HEAD
-=======
   coverage:
     dependency: transitive
     description:
@@ -163,7 +161,6 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "1.8.0"
->>>>>>> 3ca1b07d0a708cc0b478f9fbf4d4dfdfaa9610a1
   crypto:
     dependency: transitive
     description:
@@ -331,6 +328,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "2.1.2"
+  go_router:
+    dependency: "direct main"
+    description:
+      name: go_router
+      sha256: abec47eb8c8c36ebf41d0a4c64dbbe7f956e39a012b3aafc530e951bdc12fe3f
+      url: "https://pub.dev"
+    source: hosted
+    version: "14.1.4"
   google_fonts:
     dependency: "direct main"
     description:
@@ -388,18 +393,13 @@ packages:
     source: hosted
     version: "0.6.7"
   json_annotation:
-<<<<<<< HEAD
     dependency: "direct main"
-=======
-    dependency: transitive
->>>>>>> 3ca1b07d0a708cc0b478f9fbf4d4dfdfaa9610a1
     description:
       name: json_annotation
       sha256: "1ce844379ca14835a50d2f019a3099f419082cfdd231cd86a142af94dd5c6bb1"
       url: "https://pub.dev"
     source: hosted
     version: "4.9.0"
-<<<<<<< HEAD
   json_serializable:
     dependency: "direct dev"
     description:
@@ -408,8 +408,6 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "6.8.0"
-=======
->>>>>>> 3ca1b07d0a708cc0b478f9fbf4d4dfdfaa9610a1
   jwt_decoder:
     dependency: "direct main"
     description:
@@ -481,11 +479,7 @@ packages:
       sha256: "7687075e408b093f36e6bbf6c91878cc0d4cd10f409506f7bc996f68220b9136"
       url: "https://pub.dev"
     source: hosted
-<<<<<<< HEAD
-    version: "1.11.0"
-=======
     version: "1.12.0"
->>>>>>> 3ca1b07d0a708cc0b478f9fbf4d4dfdfaa9610a1
   mime:
     dependency: transitive
     description:
@@ -494,8 +488,6 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "1.0.5"
-<<<<<<< HEAD
-=======
   mockito:
     dependency: "direct dev"
     description:
@@ -512,7 +504,6 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "2.0.2"
->>>>>>> 3ca1b07d0a708cc0b478f9fbf4d4dfdfaa9610a1
   package_config:
     dependency: transitive
     description:
@@ -541,18 +532,18 @@ packages:
     dependency: transitive
     description:
       name: path_provider_android
-      sha256: a248d8146ee5983446bf03ed5ea8f6533129a12b11f12057ad1b4a67a2b3b41d
+      sha256: "9c96da072b421e98183f9ea7464898428e764bc0ce5567f27ec8693442e72514"
       url: "https://pub.dev"
     source: hosted
-    version: "2.2.4"
+    version: "2.2.5"
   path_provider_foundation:
     dependency: transitive
     description:
       name: path_provider_foundation
-      sha256: "5a7999be66e000916500be4f15a3633ebceb8302719b47b9cc49ce924125350f"
+      sha256: f234384a3fdd67f989b4d54a5d73ca2a6c422fa55ae694381ae0f4375cd1ea16
       url: "https://pub.dev"
     source: hosted
-    version: "2.3.2"
+    version: "2.4.0"
   path_provider_linux:
     dependency: transitive
     description:
@@ -633,8 +624,6 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "1.4.1"
-<<<<<<< HEAD
-=======
   shelf_packages_handler:
     dependency: transitive
     description:
@@ -651,7 +640,6 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "1.1.2"
->>>>>>> 3ca1b07d0a708cc0b478f9fbf4d4dfdfaa9610a1
   shelf_web_socket:
     dependency: transitive
     description:
@@ -673,7 +661,6 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "1.5.0"
-<<<<<<< HEAD
   source_helper:
     dependency: transitive
     description:
@@ -682,7 +669,6 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "1.3.4"
-=======
   source_map_stack_trace:
     dependency: transitive
     description:
@@ -699,7 +685,6 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "0.10.12"
->>>>>>> 3ca1b07d0a708cc0b478f9fbf4d4dfdfaa9610a1
   source_span:
     dependency: transitive
     description:
@@ -771,9 +756,6 @@ packages:
       sha256: "9955ae474176f7ac8ee4e989dadfb411a58c30415bcfb648fa04b2b8a03afa7f"
       url: "https://pub.dev"
     source: hosted
-<<<<<<< HEAD
-    version: "0.6.1"
-=======
     version: "0.7.0"
   test_core:
     dependency: transitive
@@ -783,7 +765,6 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "0.6.0"
->>>>>>> 3ca1b07d0a708cc0b478f9fbf4d4dfdfaa9610a1
   timing:
     dependency: transitive
     description:
@@ -815,11 +796,7 @@ packages:
       sha256: "3923c89304b715fb1eb6423f017651664a03bf5f4b29983627c4da791f74a4ec"
       url: "https://pub.dev"
     source: hosted
-<<<<<<< HEAD
-    version: "13.0.0"
-=======
     version: "14.2.1"
->>>>>>> 3ca1b07d0a708cc0b478f9fbf4d4dfdfaa9610a1
   watcher:
     dependency: transitive
     description:
@@ -844,8 +821,6 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "2.4.5"
-<<<<<<< HEAD
-=======
   webkit_inspection_protocol:
     dependency: transitive
     description:
@@ -854,15 +829,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "1.2.1"
->>>>>>> 3ca1b07d0a708cc0b478f9fbf4d4dfdfaa9610a1
   win32:
     dependency: transitive
     description:
       name: win32
-      sha256: "0a989dc7ca2bb51eac91e8fd00851297cfffd641aa7538b165c62637ca0eaa4a"
+      sha256: a79dbe579cb51ecd6d30b17e0cae4e0ea15e2c0e66f69ad4198f22a6789e94f4
       url: "https://pub.dev"
     source: hosted
-    version: "5.4.0"
+    version: "5.5.1"
   xdg_directories:
     dependency: transitive
     description:
@@ -881,4 +855,4 @@ packages:
     version: "3.1.2"
 sdks:
   dart: ">=3.4.0 <4.0.0"
-  flutter: ">=3.19.2"
+  flutter: ">=3.22.0"

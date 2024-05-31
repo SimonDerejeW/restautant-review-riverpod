@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:go_router/go_router.dart';
 import 'package:restaurant_review/application/auth/auth_event.dart';
 import 'package:restaurant_review/application/auth/auth_providers.dart';
 import 'package:restaurant_review/application/auth/auth_state.dart';
@@ -61,7 +62,7 @@ class _SignUpPageState extends ConsumerState<SignUpPage> {
   Widget build(BuildContext context) {
     ref.listen<AuthState>(authNotifierProvider, (previous, next) {
       if (next is AuthAuthenticated) {
-        Navigator.push(context, LogInPage.route());
+        context.go('/login');
       } else if (next is AuthError) {
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(content: Text(next.message)),
@@ -155,10 +156,7 @@ class _SignUpPageState extends ConsumerState<SignUpPage> {
                 ),
                 GestureDetector(
                   onTap: () {
-                    Navigator.push(
-                      context,
-                      LogInPage.route(),
-                    );
+                    context.go('/login');
                   },
                   child: RichText(
                     text: TextSpan(
