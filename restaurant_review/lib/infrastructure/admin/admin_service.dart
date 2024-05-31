@@ -2,8 +2,8 @@ import 'package:http/http.dart' as http;
 import 'package:restaurant_review/core/storage.dart';
 
 class AdminService {
-  final String userUrl = 'http://localhost:3000/users';
-  final String banUrl = 'http://localhost:3000/admin-func';
+  final String userUrl = 'http://10.0.2.2:3000/users';
+  final String banUrl = 'http://10.0.2.2:3000/admin-func';
   final SecureStorage _secureStorage = SecureStorage.instance;
 
   Future<http.Response> banUser(String username) async {

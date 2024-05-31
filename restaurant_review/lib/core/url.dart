@@ -1,3 +1,3 @@
 class Domain {
-  static const String url = "http://localhost:3000";
+  static const String url = "http://10.0.2.2:3000";
 }

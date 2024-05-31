@@ -3,7 +3,7 @@ import 'package:http/http.dart' as http;
 import 'package:restaurant_review/core/storage.dart';
 
 class CommentService {
-  final String baseUrl = 'http://localhost:3000/comment';
+  final String baseUrl = 'http://10.0.2.2:3000/comment';
   final SecureStorage _secureStorage = SecureStorage.instance;
 
   CommentService();
