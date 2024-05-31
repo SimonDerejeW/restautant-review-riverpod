@@ -1,8 +1,10 @@
-class CustomerModel {
-  String name;
-  bool isBanned;
+import 'package:equatable/equatable.dart';
 
-  CustomerModel({
+class CustomerModel extends Equatable {
+  final String name;
+  final bool isBanned;
+
+  const CustomerModel({
     required this.name,
     required this.isBanned,
   });
@@ -13,13 +15,17 @@ class CustomerModel {
       isBanned: json['isBanned'],
     );
   }
+
+ 
+  @override
+  List<Object?> get props => [name, isBanned];
 }
 
-class OwnerModel {
-  String name;
-  bool isBanned;
+class OwnerModel extends Equatable {
+  final String name;
+  final bool isBanned;
 
-  OwnerModel({
+  const OwnerModel({
     required this.name,
     required this.isBanned,
   });
@@ -30,4 +36,7 @@ class OwnerModel {
       isBanned: json['isBanned'],
     );
   }
+
+  @override
+  List<Object?> get props => [name, isBanned];
 }
