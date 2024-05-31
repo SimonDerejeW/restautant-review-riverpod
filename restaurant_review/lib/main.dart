@@ -37,7 +37,12 @@ final _router = GoRouter(
       name: '/restaurantpage',
       path: '/restaurantpage/:id',
       builder: (context, state) { return RestaurantPage(restaurantId: state.pathParameters["id"] as String);},
-    )
+    ),
+    GoRoute(
+      name: "adminprofile",
+      path: "/adminprofile",
+      builder: (context , state) => AdminTab()
+    ),
   ]
 );
 

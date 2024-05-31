@@ -1,11 +1,12 @@
 // admin_tab.dart
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:go_router/go_router.dart';
 import 'package:restaurant_review/application/admin/admin_event.dart';
 import 'package:restaurant_review/application/admin/admin_providers.dart';
 import 'package:restaurant_review/core/theme/app_pallete.dart';
+import 'package:restaurant_review/infrastructure/auth/auth_service.dart';
 import 'package:restaurant_review/presentation/widgets/users_view_for_admin.dart';
-
 
 class AdminTab extends ConsumerStatefulWidget {
   const AdminTab({super.key});
@@ -15,6 +16,7 @@ class AdminTab extends ConsumerStatefulWidget {
 }
 
 class _AdminTabState extends ConsumerState<AdminTab> {
+  final AuthService authService = AuthService();
   @override
   void initState() {
     super.initState();
@@ -47,6 +49,22 @@ class _AdminTabState extends ConsumerState<AdminTab> {
       length: 2,
       child: Scaffold(
         appBar: AppBar(
+          actions: [
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 10.0),
+              child: GestureDetector(
+                child: Icon(Icons.logout),
+                onTap: () {
+                  authService.logout();
+                  ScaffoldMessenger.of(context).showSnackBar(
+                    SnackBar(content: Text("Log out successful")),
+                  );
+                  // Navigate back to the login page
+                  context.go('/login');
+                },
+              ),
+            )
+          ],
           title: const Text(
             "Control Panel",
             style: TextStyle(
@@ -75,7 +93,6 @@ class _AdminTabState extends ConsumerState<AdminTab> {
                     ListView.builder(
                       itemCount: state.owners.length,
                       itemBuilder: (context, index) => UsersView(
-                        
                         key: ValueKey(state.owners[index].name),
                         name: state.owners[index].name,
                         isBanned: state.owners[index].isBanned,
