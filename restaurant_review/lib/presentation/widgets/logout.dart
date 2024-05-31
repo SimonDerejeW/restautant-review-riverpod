@@ -1,6 +1,7 @@
 // Inside the LogOut widget
 
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:restaurant_review/infrastructure/auth/auth_service.dart';
 import 'package:restaurant_review/presentation/screens/login_in_page.dart';
 
@@ -14,12 +15,7 @@ class LogOut extends StatelessWidget {
         // Call the logout method
         authService.logout();
         // Navigate back to the login page
-        Navigator.pushReplacement(
-          context,
-          MaterialPageRoute(
-            builder: (context) => LogInPage(),
-          ),
-        );
+        context.go('/login');
       },
       child: Center(
         child: Row(
