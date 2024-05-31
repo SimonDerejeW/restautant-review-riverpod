@@ -38,9 +38,16 @@ class UserNotifier extends StateNotifier<UserState> {
     final result = await _userRepository.changeUsername(newUsername);
     result.fold(
       (failure) => state = UserError(failure.message),
-      (success) => state = UserLoaded(
-          (state as UserLoaded).user.copyWith(username: newUsername)),
+      (success) => state = UsernameChangeSuccess(success),
     );
+    await Future.delayed(Duration(seconds: 1));
+
+    final new_state = await _userRepository.getUserDetails();
+    new_state.fold(
+      (failure) => state = UserError(failure.message),
+      (user) => state = UserLoaded(user),
+    );
+      
   }
 
   Future<void> _changePassword(String oldPassword, String newPassword) async {
@@ -48,7 +55,12 @@ class UserNotifier extends StateNotifier<UserState> {
         await _userRepository.changePassword(oldPassword, newPassword);
     result.fold(
       (failure) => state = UserError(failure.message),
-      (success) => state = UserLoaded((state as UserLoaded).user),
+      (success) => state = PasswordChangeSuccess(success),
+    );
+    final new_state = await _userRepository.getUserDetails();
+    new_state.fold(
+      (failure) => state = UserError(failure.message),
+      (user) => state = UserLoaded(user),
     );
   }
 

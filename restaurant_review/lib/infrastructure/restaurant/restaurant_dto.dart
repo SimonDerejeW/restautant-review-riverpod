@@ -37,7 +37,17 @@ class RestaurantDTO {
       closingTime: json['closingTime'],
       isBanned: json['isBanned'],
       comments: comments,
-
     );
+  }
+
+  Map<String, dynamic> toJson() {
+    return {
+      'name': name,
+      'description': description,
+      'location': location,
+      'contact': contact,
+      'openingTime': openingTime,
+      'closingTime': closingTime,
+    };
   }
 }

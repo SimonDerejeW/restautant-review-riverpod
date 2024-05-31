@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:go_router/go_router.dart';
 import 'package:restaurant_review/application/retaurant/restaurant_event.dart';
 import 'package:restaurant_review/application/retaurant/restaurant_provider.dart';
 import 'package:restaurant_review/application/retaurant/restaurant_state.dart';
@@ -110,13 +111,9 @@ class RestaurantGrid extends StatelessWidget {
             ], // Assuming you have a chipsList in your model
           ),
           onTap: () {
-            Navigator.push(
-              context,
-              MaterialPageRoute(
-                builder: (context) =>
-                    RestaurantPage(restaurantId: restaurant.id),
-              ),
-            );
+            context.goNamed('/restaurantpage', pathParameters: {
+              'id': restaurant.id,
+            });
           },
         );
       },

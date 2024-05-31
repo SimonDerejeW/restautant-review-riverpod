@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:go_router/go_router.dart';
 import 'package:restaurant_review/application/auth/auth_event.dart';
 import 'package:restaurant_review/application/auth/auth_providers.dart';
 import 'package:restaurant_review/application/auth/auth_state.dart';
@@ -52,7 +53,7 @@ class _LogInPageState extends ConsumerState<LogInPage> {
         if (next.user.role == 'admin') {
           Navigator.pushNamed(context, '/adminprofile');
         } else {
-          Navigator.pushNamed(context, '/entry');
+          context.go('/home');
         }
       } else if (next is AuthError) {
         ScaffoldMessenger.of(context).showSnackBar(
@@ -103,10 +104,7 @@ class _LogInPageState extends ConsumerState<LogInPage> {
               ),
               GestureDetector(
                 onTap: () => {
-                  Navigator.push(
-                    context,
-                    SignUpPage.route(),
-                  ),
+                  context.go('/signup')
                 },
                 child: RichText(
                   text: TextSpan(

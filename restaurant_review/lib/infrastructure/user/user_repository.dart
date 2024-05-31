@@ -36,12 +36,12 @@ class UserRepository implements UserRepositoryInterface {
     }
   }
 
-  Future<Either<UserFailure, Unit>> changeUsername(String newUsername) async {
+  Future<Either<UserFailure, bool>> changeUsername(String newUsername) async {
     try {
       final response = await _userService.changeUsername(newUsername);
 
       if (response.statusCode == 200) {
-        return right(unit);
+        return right(true);
       } else {
         return left(UserFailure(response.body));
       }
@@ -50,14 +50,14 @@ class UserRepository implements UserRepositoryInterface {
     }
   }
 
-  Future<Either<UserFailure, Unit>> changePassword(
+  Future<Either<UserFailure, bool>> changePassword(
       String oldPassword, String newPassword) async {
     try {
       final response =
           await _userService.changePassword(oldPassword, newPassword);
 
       if (response.statusCode == 200) {
-        return right(unit);
+        return right(true);
       } else {
         return left(UserFailure(response.body));
       }

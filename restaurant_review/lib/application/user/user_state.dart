@@ -28,3 +28,13 @@ class UserError extends UserState {
   @override
   List<Object?> get props => [message];
 }
+
+class PasswordChangeSuccess extends UserState {
+  final bool success;
+  PasswordChangeSuccess(this.success);
+}
+
+class UsernameChangeSuccess extends UserState {
+  final bool success;
+  UsernameChangeSuccess(this.success);
+}

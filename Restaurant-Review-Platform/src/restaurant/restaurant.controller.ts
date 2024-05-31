@@ -5,6 +5,7 @@ import {
   Get,
   NotFoundException,
   Param,
+  Patch,
   Post,
   Put,
   Query,
@@ -54,7 +55,7 @@ export class RestaurantController {
     return this.restaurantService.createRestaurant(createRestaurantDto);
   }
 
-  @Put(':id')
+  @Patch(':id')
   @UseGuards(AuthGuard, RolesGuard)
   @Roles(UserRole.OWNER)
   async updateRestaurant(

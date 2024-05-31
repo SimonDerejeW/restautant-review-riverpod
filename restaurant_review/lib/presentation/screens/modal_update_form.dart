@@ -2,19 +2,21 @@
 import 'package:flutter/material.dart';
 import 'package:restaurant_review/application/retaurant/restaurant_event.dart';
 import 'package:restaurant_review/application/retaurant/restaurant_provider.dart';
+import 'package:restaurant_review/application/retaurant/restaurant_state.dart';
 import 'package:restaurant_review/infrastructure/restaurant/create_restaurant_dto.dart';
 import 'package:restaurant_review/infrastructure/restaurant/restaurant_dto.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:restaurant_review/infrastructure/restaurant/update_restaurant_dto.dart';
 import 'package:restaurant_review/presentation/widgets/modal_form_text_field.dart';
 
-class Modal extends ConsumerStatefulWidget {
-  const Modal({Key? key}) : super(key: key);
+class UpdateModal extends ConsumerStatefulWidget {
+  const UpdateModal({Key? key}) : super(key: key);
 
   @override
-  ConsumerState<Modal> createState() => _ModalState();
+  ConsumerState<UpdateModal> createState() => _UpdateModalState();
 }
 
-class _ModalState extends ConsumerState<Modal> {
+class _UpdateModalState extends ConsumerState<UpdateModal> {
   final _formKey = GlobalKey<FormState>();
   final TextEditingController _nameController = TextEditingController();
   final TextEditingController _addressController = TextEditingController();
@@ -30,40 +32,63 @@ class _ModalState extends ConsumerState<Modal> {
     _closingHoursController.dispose();
     _openingHoursController.dispose();
     _descriptionController.dispose();
+    _contactController.dispose();
     super.dispose();
   }
 
-  void _submitForm() {
-    if (_formKey.currentState!.validate()) {
-      final restaurant = CreateRestaurantDTO(
-        name: _nameController.text,
-        location: _addressController.text,
-        openingTime: _closingHoursController.text,
-        closingTime: _openingHoursController.text,
-        description: _descriptionController.text,
-        contact: _contactController.text,
-      );
+void _submitForm() {
+  // Initialize a map to hold the non-empty values
+  final Map<String, dynamic> updates = {};
 
-      ref.read(restaurantNotifierProvider.notifier).mapEventToState(
-            CreateRestaurantRequested(restaurant),
-          );
-        ScaffoldMessenger.of(context).showSnackBar(
-      SnackBar(content: Text('Successfully created a restaurant.')),
-    );
-          Navigator.of(context).pop();
-    } else{
-      ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(
-          content: Text('Please fill in all required fields'),
-        ),
-      );
-    }
-      
-    
+  if (_nameController.text.isNotEmpty) {
+    updates['name'] = _nameController.text;
   }
+  if (_addressController.text.isNotEmpty) {
+    updates['location'] = _addressController.text;
+  }
+  if (_openingHoursController.text.isNotEmpty) {
+    updates['openingTime'] = _openingHoursController.text;
+  }
+  if (_closingHoursController.text.isNotEmpty) {
+    updates['closingTime'] = _closingHoursController.text;
+  }
+  if (_descriptionController.text.isNotEmpty) {
+    updates['description'] = _descriptionController.text;
+  }
+  if (_contactController.text.isNotEmpty) {
+    updates['contact'] = _contactController.text;
+  }
+
+  if (updates.isNotEmpty) {
+    final restaurant = UpdateRestaurantDTO.fromJson(updates);
+
+    print(restaurant.toJson());
+
+    ref.read(restaurantNotifierProvider.notifier).mapEventToState(
+          UpdateRestaurantRequested(restaurant),
+        );
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(content: Text('Successfully updated restaurant details.')),
+    );
+    Navigator.of(context).pop();
+  } else {
+    // Optionally, show a message that no fields have been updated
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(content: Text('No changes to update.')),
+    );
+  }
+}
+
 
   @override
   Widget build(BuildContext context) {
+    ref.listen<RestaurantState>(restaurantNotifierProvider, (previous, next) {
+      if (next is RestaurantError) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(content: Text(next.message)),
+        );
+      }
+    });
     return Center(
       child: SingleChildScrollView(
         child: Padding(
