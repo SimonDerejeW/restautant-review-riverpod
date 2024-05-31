@@ -5,6 +5,7 @@ import 'package:restaurant_review/application/user/user_event.dart';
 import 'package:restaurant_review/application/user/user_provider.dart';
 import 'package:restaurant_review/presentation/screens/login_in_page.dart';
 import 'package:restaurant_review/presentation/screens/modal_form.dart';
+import 'package:restaurant_review/presentation/screens/restaurant_crud.dart';
 import '../widgets/text_fields.dart';
 import '../widgets/logout.dart';
 import '../widgets/Expansion_bar.dart';
@@ -65,7 +66,7 @@ class ProfilePage extends ConsumerWidget {
           body: TabBarView(
             children: [
               Profile(user: userState.user),
-              if (userState.user.isOwner == 'owner') Modal(),
+              if (userState.user.isOwner == 'owner') RestaurantCrud(),
             ],
           ),
         ),
