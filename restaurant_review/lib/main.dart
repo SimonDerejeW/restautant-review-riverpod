@@ -4,6 +4,7 @@ import 'package:restaurant_review/presentation/screens/Profile_page.dart';
 import 'package:restaurant_review/presentation/screens/admin_tab.dart';
 import 'package:restaurant_review/presentation/screens/bottom_nav.dart';
 import 'package:restaurant_review/presentation/screens/home_page.dart';
+import 'package:restaurant_review/presentation/screens/login_in_page.dart';
 import 'package:restaurant_review/presentation/screens/search_page.dart';
 import 'package:restaurant_review/presentation/screens/sign_up_page.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -27,7 +28,8 @@ class MyApp extends StatelessWidget {
         '/profilepage': (context) => ProfilePage(),
         // "/restaurantpage": (context) => RestaurantPage(),
         '/adminprofile': (context) => const AdminTab(),
-        "/entry": (context) => const BottomNav()
+        "/entry": (context) => const BottomNav(),
+        "/logines": (context) => const LogInPage()
       },
     );
   }
