@@ -1,19 +1,20 @@
+import 'package:equatable/equatable.dart';
 import 'package:restaurant_review/domain/admin/users_model.dart';
 
-class AdminState {
+class AdminState extends Equatable {
   final List<CustomerModel> customers;
   final List<OwnerModel> owners;
   final bool isLoading;
   final String? errorMessage;
 
-  AdminState({
+  const AdminState({
     required this.customers,
     required this.owners,
     required this.isLoading,
     this.errorMessage,
   });
 
-  factory AdminState.initial() => AdminState(
+  factory AdminState.initial() => const AdminState(
         customers: [],
         owners: [],
         isLoading: false,
@@ -33,4 +34,7 @@ class AdminState {
       errorMessage: errorMessage,
     );
   }
+
+  @override
+  List<Object?> get props => [customers, owners, isLoading, errorMessage];
 }

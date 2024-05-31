@@ -29,25 +29,35 @@ class AdminNotifier extends StateNotifier<AdminState> {
   }
 
   Future<void> fetchUsers() async {
+    print('fetchusers is called');
     state = state.copyWith(isLoading: true, errorMessage: null);
     final customersResult = await _adminRepository.fetchAllCustomers();
     final ownersResult = await _adminRepository.fetchAllOwners();
-
+    // print('fetchallcustomers: $customersResult');
+    // print('fetchallowners: $ownersResult');
     customersResult.fold(
-      (failure) => state =
-          state.copyWith(isLoading: false, errorMessage: failure.message),
-      (customers) => state = state.copyWith(customers: customers),
-    );
+        (failure) => state =
+            state.copyWith(isLoading: false, errorMessage: failure.message),
+        (customers) {
+      print("fetch customer is called");
+      state = state.copyWith(customers: customers);
+    });
 
     ownersResult.fold(
       (failure) => state =
           state.copyWith(isLoading: false, errorMessage: failure.message),
-      (owners) => state = state.copyWith(owners: owners, isLoading: false),
+      (owners) {
+        print("fetch owner is called");
+        state = state.copyWith(owners: owners, isLoading: false);
+      },
     );
+
+    print("fetchusers completed");
   }
 
   Future<void> toggleBanCustomer(String username, bool isBanned) async {
-    print(isBanned);
+    print(
+        "toggle bancustomer is called......................................isbanned$isBanned");
     final result = isBanned
         ? await _adminRepository.banUser(username)
         : await _adminRepository.unbanUser(username);
@@ -59,7 +69,7 @@ class AdminNotifier extends StateNotifier<AdminState> {
   }
 
   Future<void> toggleBanOwner(String username, bool isBanned) async {
-    print(isBanned);
+    print("toggle banowner is called.......................isbanned$isBanned");
     final result = isBanned
         ? await _adminRepository.banUser(username)
         : await _adminRepository.unbanUser(username);
